@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/popover"
 import { useLoggedOut } from '@/hooks/User.hook'
 import { Spinner } from './ui/spinner'
+import Logo from './ui/Logo'
 import { useNavigate } from 'react-router-dom'
 import { useUserStore } from '@/Store/user.store'
 import { LogOut, User, LayoutDashboard, BookOpen } from 'lucide-react'
@@ -55,10 +56,8 @@ const Navbar = () => {
   return (
     <div className='h-[12vh] w-full flex items-center justify-between px-6 lg:px-9 shadow-lg bg-white/80 backdrop-blur-sm border-b border-slate-100'>
       {/* Logo - Professional Typography */}
-      <div className='flex items-center gap-3'>
-        <h1 className='text-2xl lg:text-3xl font-black bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent tracking-tight'>
-          EduSmart
-        </h1>
+      <div onClick={() => navigate('/')} className='flex items-center gap-3 cursor-pointer'>
+        <Logo className='h-[50px] w-auto' />
       </div>
 
       {/* User Menu */}
