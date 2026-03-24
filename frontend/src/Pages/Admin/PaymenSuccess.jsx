@@ -26,27 +26,27 @@ const PaymenSuccess = () => {
   }, [isSuccess, navigate])
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-emerald-50 to-green-50 flex items-center justify-center px-6 py-12'>
-      <div className='max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-12 text-center border border-emerald-200'>
-        <div className='w-28 h-28 bg-emerald-100 rounded-3xl flex items-center justify-center mx-auto mb-8 p-6'>
-          <CheckCircle className='w-16 h-16 text-emerald-600' />
+    <div className='min-h-screen bg-[var(--background)] flex items-center justify-center px-6 py-12'>
+      <div className='max-w-2xl w-full bg-[var(--card)] rounded-3xl shadow-2xl p-12 text-center border border-[var(--accent)]'>
+        <div className='w-28 h-28 bg-[var(--accent)]/20 rounded-3xl flex items-center justify-center mx-auto mb-8 p-6'>
+          <CheckCircle className='w-16 h-16 text-[var(--accent)]' />
         </div>
         
-        <h1 className='text-4xl font-black text-slate-900 mb-4'>Payment Successful!</h1>
-        <p className='text-xl text-slate-600 mb-8 leading-relaxed'>
+        <h1 className='text-4xl font-black text-[var(--foreground)] mb-4'>Payment Successful!</h1>
+        <p className='text-xl text-[var(--muted-foreground)] mb-8 leading-relaxed'>
           Thank you for your purchase. Your course access is now active.
         </p>
         
         <div className='space-y-4 mb-12'>
-          <div className='bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-6'>
-            <div className='flex items-center justify-center gap-3 text-emerald-700'>
+          <div className='bg-[var(--accent)]/10 border-2 border-[var(--accent)] rounded-2xl p-6'>
+            <div className='flex items-center justify-center gap-3 text-[var(--accent)]'>
               <CheckCircle className='w-6 h-6' />
               <span className='font-semibold'>Course unlocked successfully</span>
             </div>
           </div>
           
-          <div className='bg-blue-50 border-2 border-blue-200 rounded-2xl p-6'>
-            <div className='flex items-center justify-center gap-3 text-blue-700'>
+          <div className='bg-[var(--popover)]/10 border-2 border-[var(--popover)] rounded-2xl p-6'>
+            <div className='flex items-center justify-center gap-3 text-[var(--muted-foreground)]'>
               <ArrowRight className='w-6 h-6' />
               <span className='font-semibold'>Redirecting to dashboard in 5s...</span>
             </div>
@@ -55,13 +55,13 @@ const PaymenSuccess = () => {
         
         <div className='flex gap-4 justify-center'>
           <Link to='/dashboard'>
-            <button className='flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200'>
+            <button className='flex items-center gap-2 px-8 py-4 bg-[var(--accent)] hover:brightness-95 text-[var(--accent-foreground)] font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200'>
               Go to Dashboard
             </button>
           </Link>
           
           <Link to='/'>
-            <button className='flex items-center gap-2 px-8 py-4 border-2 border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200'>
+            <button className='flex items-center gap-2 px-8 py-4 border-2 border-[var(--border)] hover:bg-[var(--popover)] text-[var(--muted-foreground)] font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200'>
               <Home className='w-5 h-5' />
               Back to Home
             </button>

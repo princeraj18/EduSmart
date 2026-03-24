@@ -17,10 +17,10 @@ const DashboardSideBar = () => {
   ]
 
   return (
-    <div className='w-64 bg-white shadow-xl border-r border-slate-200'>
-      <div className='p-6 border-b border-slate-200'>
-        <h1 className='text-2xl font-black text-slate-900 tracking-tight'>EduSmart</h1>
-        <p className='text-xs text-slate-500 font-medium mt-1'>Admin Dashboard</p>
+    <div className='w-64 bg-[var(--card)] shadow-xl border-r border-[var(--border)]'>
+      <div className='p-6 border-b border-[var(--border)]'>
+        <h1 className='text-2xl font-black text-[var(--foreground)] tracking-tight'>EduSmart</h1>
+        <p className='text-xs text-[var(--muted-foreground)] font-medium mt-1'>Admin Dashboard</p>
       </div>
 
       <nav className='p-4 space-y-1'>
@@ -31,8 +31,8 @@ const DashboardSideBar = () => {
             className={({ isActive }) => 
               `group flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 cursor-pointer
               ${isActive 
-                ? 'bg-emerald-600 text-white shadow-lg hover:bg-emerald-700' 
-                : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-md'
+                ? 'bg-[var(--accent)] text-[var(--accent-foreground)] shadow-lg hover:brightness-95' 
+                : 'text-[var(--muted-foreground)] hover:bg-[var(--popover)] hover:text-[var(--foreground)] hover:shadow-md'
               }`
             }
           >

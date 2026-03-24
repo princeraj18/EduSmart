@@ -29,7 +29,7 @@ const DashboardAnalytics = () => {
   const { data: dailyData, isLoading } = useGetDailyData(startDate, endDate)
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8 space-y-10">
+    <div className="min-h-screen bg-[var(--background)] p-8 space-y-10">
       {/* Page Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Analytics Overview</h1>
@@ -47,13 +47,13 @@ const DashboardAnalytics = () => {
       </div>
 
       {/* Chart Section */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
+      <div className="bg-[var(--card)] rounded-2xl shadow-lg border border-[var(--border)] p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-xl font-semibold text-[var(--foreground)]">
               Revenue Trend
             </h2>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-[var(--muted-foreground)]">
               Last 7 days performance
             </p>
           </div>
@@ -92,9 +92,9 @@ export default DashboardAnalytics
 
 
 const StatCard = ({ title, value }) => (
-  <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100">
-    <p className="text-sm text-gray-500">{title}</p>
-    <h2 className="text-2xl font-bold text-gray-900 mt-2">
+  <div className="bg-[var(--card)] rounded-xl shadow-md p-6 border border-[var(--border)]">
+    <p className="text-sm text-[var(--muted-foreground)]">{title}</p>
+    <h2 className="text-2xl font-bold text-[var(--foreground)] mt-2">
       {value ?? '-'}
     </h2>
   </div>

@@ -79,15 +79,15 @@ const CourseSection = ({ ActiveSearch }) => {
   }
 
   return (
-    <div className='py-20 px-6 bg-slate-50'>
+    <div className='py-20 px-6 bg-[var(--background)]'>
       <div className='max-w-7xl mx-auto'>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
           {filteredCourses.map((item) => (
             <div
               key={item._id}
               onClick={() => navigateSinglecourse(item._id)}
-              className='group bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-xl 
-                        hover:-translate-y-2 hover:border-slate-300 cursor-pointer transition-all 
+              className='group bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 hover:shadow-xl 
+                        hover:-translate-y-2 hover:border-[var(--accent)] cursor-pointer transition-all 
                         duration-300 overflow-hidden max-w-sm mx-auto'
             >
               {/* Thumbnail */}
@@ -97,44 +97,44 @@ const CourseSection = ({ ActiveSearch }) => {
                   alt={item.title}
                   className='w-full h-48 object-cover rounded-xl group-hover:scale-105 transition-transform duration-300'
                 />
-                <div className='absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg'>
+                <div className='absolute top-3 right-3 bg-[var(--card)]/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg'>
                   <Star className='w-4 h-4 text-yellow-500 fill-current inline mr-1' />
-                  <span className='text-sm font-bold text-slate-800'>{item.rating || '4.8'}</span>
+                  <span className='text-sm font-bold text-[var(--muted-foreground)]'>{item.rating || '4.8'}</span>
                 </div>
               </div>
 
               {/* Content */}
               <div>
-                <h3 className='font-bold text-xl text-slate-900 leading-tight mb-3 line-clamp-2 group-hover:text-slate-700'>
+                <h3 className='font-bold text-xl text-[var(--foreground)] leading-tight mb-3 line-clamp-2 group-hover:text-[var(--muted-foreground)]'>
                   {ActiveSearch ? highlightText(item.title) : item.title}
                 </h3>
                 
                 <div className='space-y-3 mb-6'>
-                  <div className='flex items-center gap-2 text-sm text-slate-600'>
+                  <div className='flex items-center gap-2 text-sm text-[var(--muted-foreground)]'>
                     <Users className='w-4 h-4' />
                     <span>{item.enrolled || '1.2k'} students</span>
                   </div>
                   
-                  <div className='flex items-center gap-2 text-sm text-slate-600'>
+                  <div className='flex items-center gap-2 text-sm text-[var(--muted-foreground)]'>
                     <Clock className='w-4 h-4' />
                     <span>{item.duration || '12 hours'}</span>
                   </div>
                   {ActiveSearch && (
-                    <p className='text-sm text-slate-600 mt-2 line-clamp-2'>
+                    <p className='text-sm text-[var(--muted-foreground)] mt-2 line-clamp-2'>
                       {highlightText(item.description)}
                     </p>
                   )}
                   
                   {ActiveSearch && (
-                    <div className='inline-flex items-center gap-2 px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium'>
+                    <div className='inline-flex items-center gap-2 px-3 py-1 bg-[var(--popover)] text-[var(--muted-foreground)] rounded-full text-xs font-medium'>
                       <span>🔍 {ActiveSearch}</span>
                     </div>
                   )}
                 </div>
 
-                <div className='flex items-center justify-between pt-4 border-t border-slate-200'>
+                <div className='flex items-center justify-between pt-4 border-t border-[var(--border)]'>
                  
-                  <button className='px-4 py-2 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-800 transition-colors group-hover:scale-105'>
+                  <button className='px-4 py-2 bg-[var(--accent)] text-[var(--accent-foreground)] text-sm font-semibold rounded-xl hover:brightness-95 transition-colors group-hover:scale-105'>
                     View Course
                   </button>
                 </div>

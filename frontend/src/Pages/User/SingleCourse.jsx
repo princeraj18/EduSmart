@@ -30,8 +30,8 @@ const SingleCourse = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 bg-white rounded-2xl shadow-lg p-8">
+    <div className="min-h-screen bg-[var(--background)] py-12 px-4">
+      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 bg-[var(--card)] rounded-2xl shadow-lg p-8">
 
         {/* Course Image */}
         <div className="flex items-center justify-center">
@@ -45,19 +45,19 @@ const SingleCourse = () => {
         {/* Course Details */}
         <div className="flex flex-col justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl font-bold text-[var(--foreground)] mb-4">
               {data?.title}
             </h1>
 
-            <p className="text-gray-600 mb-6 leading-relaxed">
+            <p className="text-[var(--muted-foreground)] mb-6 leading-relaxed">
               {data?.description || "Upgrade your skills with this professional course."}
             </p>
 
             <div className="flex items-center gap-4 mb-8">
-              <span className="text-3xl font-bold text-emerald-600">
+              <span className="text-3xl font-bold text-yellow-400">
                 ₹{data?.amount}
               </span>
-              <span className="text-sm text-gray-400 line-through">
+              <span className="text-sm text-[var(--muted-foreground)] line-through">
                 ₹{Number(data?.amount) + 999}
               </span>
             </div>
@@ -67,8 +67,7 @@ const SingleCourse = () => {
           <button
             disabled={isPending}
             onClick={() => purchaseHandler(data)}
-            className="w-full py-4 rounded-xl bg-emerald-600 text-white font-semibold text-lg
-            hover:bg-emerald-700 transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center"
+            className="w-full py-4 rounded-xl bg-green-600 text-[var(--accent-foreground)] font-semibold text-lg hover:brightness-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center"
           >
             {isPending ? <Spinner /> : 'Buy Now'}
           </button>

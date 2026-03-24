@@ -7,7 +7,7 @@ const Logo = ({ className = '' }) => (
       <path d="M16 22 L32 30 L48 22 L32 14 Z" fill="#fff" />
       <path d="M18 34 L32 42 L46 34 L32 26 Z" fill="#bfdbfe" />
     </svg>
-    <span className="ml-3 font-semibold text-slate-900 text-lg">EduPath</span>
+    <span className="ml-3 font-semibold text-[var(--foreground)] text-lg">EduPath</span>
   </div>
 )
 

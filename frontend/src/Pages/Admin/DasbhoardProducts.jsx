@@ -43,16 +43,16 @@ const DashboardProducts = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-[var(--background)] p-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Courses</h1>
+        <h1 className="text-3xl font-bold text-[var(--foreground)]">Courses</h1>
 
         {user?.email === import.meta.env.VITE_ADMIN_EMAIL && (
           <Dialog open={openModule} onOpenChange={setOpenModule}>
             <DialogTrigger
               disabled={isPending}
-              className="px-5 py-2 bg-emerald-600 text-white rounded-lg font-medium hover:bg-emerald-700 transition"
+              className="px-5 py-2 bg-[var(--accent)] text-[var(--accent-foreground)] rounded-lg font-medium hover:brightness-95 transition"
             >
               + Add Course
             </DialogTrigger>
@@ -68,21 +68,21 @@ const DashboardProducts = () => {
                   <input
                     {...register("title")}
                     placeholder="Course Title"
-                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
                   />
 
                   <textarea
                     {...register("description")}
                     placeholder="Course Description"
                     rows={3}
-                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
                   />
 
                   <input
                     type="number"
                     {...register("amount")}
                     placeholder="Price"
-                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
                   />
 
                   <input
@@ -95,7 +95,7 @@ const DashboardProducts = () => {
                   <button
                     disabled={isPending}
                     type="submit"
-                    className="w-full py-3 bg-emerald-600 flex items-center justify-center text-white rounded-lg font-semibold hover:bg-emerald-700 transition"
+                    className="w-full py-3 bg-[var(--accent)] flex items-center justify-center text-[var(--accent-foreground)] rounded-lg font-semibold hover:brightness-95 transition"
                   >
                     {isPending ? <Spinner /> : "Create Course"}
                   </button>
@@ -113,9 +113,9 @@ const DashboardProducts = () => {
           <div
             key={item._id}
             onClick={() => getCourseId(item._id)}
-            className="cursor-pointer bg-white rounded-xl shadow-md hover:shadow-xl transition p-4 group"
+            className="cursor-pointer bg-[var(--card)] rounded-xl shadow-md hover:shadow-xl transition p-4 group"
           >
-            <div className="h-40 flex items-center justify-center bg-gray-100 rounded-lg overflow-hidden">
+            <div className="h-40 flex items-center justify-center bg-[var(--popover)] rounded-lg overflow-hidden">
               <img
                 src={item.thumbnail}
                 alt={item.title}
@@ -124,14 +124,14 @@ const DashboardProducts = () => {
             </div>
 
             <div className="mt-4">
-              <h2 className="font-semibold text-lg text-gray-900 line-clamp-1">
+              <h2 className="font-semibold text-lg text-[var(--foreground)] line-clamp-1">
                 {item.title}
               </h2>
-              <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+              <p className="text-sm text-[var(--muted-foreground)] mt-1 line-clamp-2">
                 {item.description}
               </p>
 
-              <div className="mt-3 font-bold text-emerald-600">
+              <div className="mt-3 font-bold text-[var(--accent)]">
                 ₹ {item.amount}
               </div>
             </div>
