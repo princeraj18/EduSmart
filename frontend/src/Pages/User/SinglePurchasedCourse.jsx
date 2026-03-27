@@ -35,7 +35,7 @@ const SinglePurchasedCourse = () => {
     createQuiz(
       {
         moduleId: moduleData._id,
-        content: moduleData.title
+        content: data?.title || moduleData.title
       },
       {
         onSuccess: () => toast.success('Quiz created successfully!')
