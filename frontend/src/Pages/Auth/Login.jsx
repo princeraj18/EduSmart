@@ -4,6 +4,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { Mail, Lock } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const { register, handleSubmit } = useForm()
@@ -12,6 +13,8 @@ const Login = () => {
   const loginFormHandler = (data) => {
     mutate(data)
   }
+
+  const navigate = useNavigate()
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-indigo-100 px-4">
@@ -90,6 +93,14 @@ const Login = () => {
           >
             Register
           </Link>
+          <br />
+          <button
+            type="button"
+            onClick={() => navigate('/admin/login')}
+            className="mt-3 text-sm text-indigo-600 font-medium hover:underline"
+          >
+            Admin Login
+          </button>
         </p>
       </div>
     </div>

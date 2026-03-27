@@ -7,16 +7,20 @@ import { Navigate } from "react-router-dom"
 
 export const ProtectedRoutes =({children})=>{
     const setUser = useUserStore((state)=>state.setUser)
+    const clearUser = useUserStore((state)=>state.clearUser)
     const {data, isLoading, isError, error} = useGetUserHook()
 
     
     console.log(data)
     useEffect(()=>{
         if(data){
-        setUser(data)
-    }
-
-    })
+            setUser(data)
+            return
+        }
+        if (isError) {
+            clearUser()
+        }
+    }, [data, isError, setUser, clearUser])
     if(isLoading){
         return (
              <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">

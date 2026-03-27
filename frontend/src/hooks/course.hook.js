@@ -1,5 +1,5 @@
-import { createCourseApi, getAllPurchaseCourseApi, getCourseApi, getPurchaseCourseApi, getSingleCourseApi } from '@/Api/course.api'
-import {  useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { createCourseApi, deleteCourseApi, getAllPurchaseCourseApi, getCourseApi, getPurchaseCourseApi, getSingleCourseApi, updateCourseApi } from '@/Api/course.api'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 // import { useQueryClient } from 'node_modules/@tanstack/react-query/build/legacy'
 export const useCreateCouseHook=()=>{
     const queryClient = useQueryClient()
@@ -43,5 +43,31 @@ export const useGetAllPurchaseCourse=()=>{
     return useQuery({
         queryFn:getAllPurchaseCourseApi,
         queryKey:['getAllPurchaseCourse']
+    })
+}
+
+export const useUpdateCourseHook = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: updateCourseApi,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['getCourse'])
+        },
+        onError: (err) => {
+            console.log(err)
+        }
+    })
+}
+
+export const useDeleteCourseHook = () => {
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: deleteCourseApi,
+        onSuccess: () => {
+            queryClient.invalidateQueries(['getCourse'])
+        },
+        onError: (err) => {
+            console.log(err)
+        }
     })
 }

@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom'
 
 const App = () => {
   const location = useLocation()
-  const hiddenRoute = ['/login', '/register', '/dashboard']
+  const hiddenRoute = ['/login', '/register', '/dashboard', '/admin/login', '/admin/register']
   const  shouldHideNavbar = hiddenRoute.some((route)=>location.pathname.startsWith(route))
 
   return (

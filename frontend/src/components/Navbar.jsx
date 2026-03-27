@@ -6,16 +6,30 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { useLoggedOut } from '@/hooks/User.hook'
+import { useAdminMe, useAdminLogout } from '@/hooks/admin.hook'
 import { Spinner } from './ui/spinner'
 import Logo from './ui/Logo'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useUserStore } from '@/Store/user.store'
 import { LogOut, User, LayoutDashboard, BookOpen, Sun, Moon } from 'lucide-react'
+import { ShoppingBag } from 'lucide-react'
 
 const Navbar = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const { mutate, isPending } = useLoggedOut()
+  const { mutate: adminLogout, isPending: isAdminLoggingOut } = useAdminLogout()
   const { user } = useUserStore()
+  const isAuthScreen = ['/login', '/register', '/admin/login', '/admin/register']
+    .some((route) => location.pathname.startsWith(route))
+  const { data: adminMe } = useAdminMe(!isAuthScreen)
+
+  const isAdminLoggedIn = adminMe?.success === true
+  const adminName = adminMe?.admin?.name
+  const primaryName = isAdminLoggedIn ? adminName : user?.fullName
+  const secondaryLabel = isAdminLoggedIn
+    ? 'Admin'
+    : (user?.email?.split('@')[0] || 'Member')
 
   const [theme, setTheme] = useState(() => {
     try {
@@ -37,42 +51,51 @@ const Navbar = () => {
     mutate()
   }
 
-  const baseNav = [
-    {
-      label: 'Profile',
-      icon: User,
-      onClick: () => navigate('/profile')
-    },
-    {
-      label: 'Your Courses',
-      icon: BookOpen,
-      onClick: () => navigate('/YourCourse')
-    },
-    {
-      label: 'Logout',
-      icon: LogOut,
-      onClick: logoutHandler,
-      loading: isPending
-    }
-  ]
-
-  const isAdmin = user?.admin === true || user?.email === import.meta.env.VITE_ADMIN_EMAIL
-
-  const navItems = isAdmin
+  const navItems = isAdminLoggedIn
     ? [
-        {
-          label: 'Dashboard',
-          icon: LayoutDashboard,
-          onClick: () => navigate('/dashboard')
-        },
-        ...baseNav
-      ]
-    : baseNav
+      {
+        label: 'Admin Home',
+        icon: LayoutDashboard,
+        onClick: () => navigate('/admin/admin-home'),
+      },
+      {
+        label: 'Courses',
+        icon: ShoppingBag,
+        onClick: () => navigate('/admin/dashboard/courses'),
+      },
+      {
+        label: 'Logout',
+        icon: LogOut,
+        onClick: () => adminLogout(),
+        loading: isAdminLoggingOut,
+      },
+    ]
+    : [
+      {
+        label: 'Profile',
+        icon: User,
+        onClick: () => navigate('/profile'),
+      },
+      {
+        label: 'Your Courses',
+        icon: BookOpen,
+        onClick: () => navigate('/YourCourse'),
+      },
+      {
+        label: 'Logout',
+        icon: LogOut,
+        onClick: logoutHandler,
+        loading: isPending,
+      },
+    ]
 
   return (
     <div className='h-[12vh] w-full flex items-center justify-between px-6 lg:px-9 shadow-lg bg-[var(--card)]/80 backdrop-blur-sm border-b border-[var(--border)]'>
       {/* Logo - Professional Typography */}
-      <div onClick={() => navigate('/')} className='flex items-center gap-3 cursor-pointer'>
+      <div
+        onClick={() => navigate(isAdminLoggedIn ? '/admin/admin-home' : '/')}
+        className='flex items-center gap-3 cursor-pointer'
+      >
         <Logo className='h-[50px] w-auto' />
       </div>
 
@@ -99,16 +122,16 @@ const Navbar = () => {
               className='object-cover'
             />
             <AvatarFallback className='bg-gradient-to-br from-[var(--popover)] to-[var(--card)] text-[var(--muted-foreground)] font-semibold text-sm'>
-              {user?.fullName ? user.fullName.slice(0,2).toUpperCase() : 'CN'}
+              {primaryName ? primaryName.slice(0,2).toUpperCase() : 'CN'}
             </AvatarFallback>
           </Avatar>
           
           <div className='hidden md:block text-left'>
             <p className='font-semibold text-sm text-[var(--foreground)] leading-tight'>
-              {user?.fullName || 'User'}
+              {primaryName || 'User'}
             </p>
             <p className='text-xs text-[var(--muted-foreground)] font-medium tracking-wide'>
-              {user?.email?.split('@')[0] || 'Member'}
+              {secondaryLabel}
             </p>
           </div>
 
@@ -121,7 +144,7 @@ const Navbar = () => {
         <PopoverContent className='w-64 p-1 mt-2 border-[var(--border)] shadow-2xl rounded-2xl'>
           <div className='p-4 border-b border-[var(--border)]'>
             <p className='font-semibold text-[var(--foreground)] text-sm tracking-tight'>
-              {user?.fullName || 'Welcome back'}
+              {primaryName || 'Welcome back'}
             </p>
             <p className='text-xs text-[var(--muted-foreground)] font-medium'>
               Manage your account

@@ -4,62 +4,63 @@ import { Course } from "../models/course.model.js";
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { User } from "../models/user.model.js"; 
 import {Modules} from '../models/module.model.js'
+import { Order } from "../models/order.model.js";
+import { Comment } from "../models/comment.model.js";
 const genAI = new GoogleGenerativeAI(ENV.GEMINI_API_KEY)
 const model = genAI.getGenerativeModel({model:'gemini-2.5-flash'})
 
-export const createCourse =async(req , res)=>{
+export const createCourse = async (req, res) => {
     try {
-        const {title, description, amount} = req.body;
-        const thumbnail = req.file
-
-        if(!title || !description || !amount){
-            return res.status(401).json({
-                message:"Please provide all the detail"
-            })
-        }
-
-        if(!thumbnail){
-            return res.status(400).json({
-                success:false,
-                message:"Thumbnail image is required"
-            })
-        }
-
-        let imageUrl =""
-        
-        const base64 = `data:${thumbnail.mimetype};base64,${thumbnail.buffer.toString("base64")}`;
-
-        const uploadRes = await cloudinary.uploader.upload(base64,{
-            folder:"lmsYT"
+      const { title, description, amount } = req.body
+      const thumbnail = req.file
+  
+    //   console.log("ADMIN:", req.admin)
+    //   console.log("FILE:", thumbnail)
+  
+      if (!title || !description || !amount) {
+        return res.status(400).json({
+          message: "Please provide all details"
         })
-
-        imageUrl = uploadRes.secure_url
-
-        const newCourse = new Course({
-            userId:req.user._id,
-            title,
-            description,
-            thumbnail:imageUrl,
-            amount
+      }
+  
+      if (!thumbnail) {
+        return res.status(400).json({
+          success: false,
+          message: "Thumbnail image is required"
         })
-
-        await newCourse.save()
-
-        return res.status(201).json({
-            message:"Course Created Successfully",
-            newCourse
-        })
-
+      }
+  
+      const base64 = `data:${thumbnail.mimetype};base64,${thumbnail.buffer.toString("base64")}`
+  
+      const uploadRes = await cloudinary.uploader.upload(base64, {
+        folder: "lmsYT"
+      })
+  
+      const newCourse = new Course({
+        userId: req.admin._id,   // ✅ FIXED
+        title,
+        description,
+        thumbnail: uploadRes.secure_url,
+        amount
+      })
+  
+      await newCourse.save()
+  
+      return res.status(201).json({
+        message: "Course Created Successfully",
+        newCourse
+      })
+  
     } catch (error) {
-        console.log(`error from create course. ${error}`)
-        return res.status(500).json({
-            success:false,
-            message:'Failed to create course',
-            error: error.message
-        })
+      console.log("CREATE COURSE ERROR:", error)
+  
+      return res.status(500).json({
+        success: false,
+        message: "Failed to create course",
+        error: error.message
+      })
     }
-}
-
+  }
 
 
 export const getCourse = async(req, res)=>{
@@ -182,5 +183,92 @@ export const getAllPurchasedCourse = async(req,res)=>{
         return res.status(201).json(user)
     } catch (error) {
         console.log(error)
+    }
+}
+
+
+export const getAllOrdersAdmin = async (req, res) => {
+    try {
+        // Admin-only: return all orders with user and course details
+        const orders = await Order.find()
+            .populate('user', 'fullName email')
+            .populate('course', 'title amount')
+            .sort({ createdAt: -1 })
+
+        return res.status(200).json({ success: true, orders })
+    } catch (error) {
+        console.log('error from getAllOrdersAdmin', error)
+        return res.status(500).json({ success: false, message: 'Failed to fetch orders' })
+    }
+}
+
+export const updateCourse = async (req, res) => {
+    try {
+        const courseId = req.params.id
+        const { title, description, amount } = req.body
+
+        if (!courseId) {
+            return res.status(400).json({ success: false, message: 'Course id is required' })
+        }
+
+        const updateData = {}
+
+        if (title !== undefined) updateData.title = title
+        if (description !== undefined) updateData.description = description
+        if (amount !== undefined) updateData.amount = Number(amount)
+
+        if (req.file) {
+            const base64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`
+            const uploadRes = await cloudinary.uploader.upload(base64, { folder: "lmsYT" })
+            updateData.thumbnail = uploadRes.secure_url
+        }
+
+        if (Object.keys(updateData).length === 0) {
+            return res.status(400).json({ success: false, message: 'No fields provided to update' })
+        }
+
+        const updated = await Course.findByIdAndUpdate(courseId, { $set: updateData }, { new: true })
+        if (!updated) {
+            return res.status(404).json({ success: false, message: 'Course not found' })
+        }
+
+        return res.status(200).json({ success: true, message: 'Course updated successfully', course: updated })
+    } catch (error) {
+        console.log(`error from updateCourse, ${error}`)
+        return res.status(500).json({ success: false, message: 'Failed to update course', error: error.message })
+    }
+}
+
+export const deleteCourse = async (req, res) => {
+    try {
+        const courseId = req.params.id
+
+        if (!courseId) {
+            return res.status(400).json({ success: false, message: 'Course id is required' })
+        }
+
+        const course = await Course.findById(courseId)
+        if (!course) {
+            return res.status(404).json({ success: false, message: 'Course not found' })
+        }
+
+        // Cascade delete modules + their comments (course references are stored on Modules via courseId).
+        const modules = await Modules.find({ courseId })
+        const moduleIds = modules.map((m) => m._id)
+
+        if (moduleIds.length > 0) {
+            await Comment.deleteMany({ moduleId: { $in: moduleIds } })
+            await Modules.deleteMany({ courseId })
+        } else {
+            // still remove courseId modules just in case
+            await Modules.deleteMany({ courseId })
+        }
+
+        await Course.findByIdAndDelete(courseId)
+
+        return res.status(200).json({ success: true, message: 'Course deleted successfully' })
+    } catch (error) {
+        console.log(`error from deleteCourse, ${error}`)
+        return res.status(500).json({ success: false, message: 'Failed to delete course', error: error.message })
     }
 }

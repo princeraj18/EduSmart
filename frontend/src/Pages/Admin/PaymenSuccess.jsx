@@ -54,7 +54,7 @@ const PaymenSuccess = () => {
         </div>
         
         <div className='flex gap-4 justify-center'>
-          <Link to='/dashboard'>
+          <Link to='/'>
             <button className='flex items-center gap-2 px-8 py-4 bg-[var(--accent)] hover:brightness-95 text-[var(--accent-foreground)] font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200'>
               Go to Dashboard
             </button>

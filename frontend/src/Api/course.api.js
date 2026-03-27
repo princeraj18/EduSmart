@@ -1,14 +1,17 @@
 import axios from "axios"
 
-export const createCourseApi=async(payload)=>{
-    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/course/createCourse`,
+export const createCourseApi = async (payload) => {
+    const res = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/course/createCourse`,
         payload,
         {
-            headers:{'Content-Type':'multipart/form-data'},
-            withCredentials:true
-        },
-        
+            withCredentials: true,   // ✅ REQUIRED
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
     )
+
     return res.data
 }
 
@@ -60,5 +63,31 @@ export const getAllPurchaseCourseApi = async()=>{
         }
     )
 
+    return res.data
+}
+
+export const getAllOrdersAdminApi = async()=>{
+    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/course/admin/orders`,
+        {
+            headers:{'Content-Type':'Application/json'},
+            withCredentials:true
+        }
+    )
+
+    return res.data
+}
+
+export const updateCourseApi = async ({ id, formData }) => {
+    const res = await axios.patch(`${import.meta.env.VITE_BASE_URL}/course/updateCourse/${id}`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        withCredentials: true
+    })
+    return res.data
+}
+
+export const deleteCourseApi = async (id) => {
+    const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}/course/deleteCourse/${id}`, {
+        withCredentials: true
+    })
     return res.data
 }

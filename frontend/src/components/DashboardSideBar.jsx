@@ -3,18 +3,20 @@ import { NavLink } from 'react-router-dom'
 import { 
   LayoutDashboard, 
   ShoppingBag, 
- 
   Home,
-  BarChart3 
+  BarChart3,
+  PlusSquare
 } from 'lucide-react'
 
 const DashboardSideBar = () => {
   const navItems = [
-    { to: '/', label: 'Home', icon: Home },
-    { to: '/dashboard', label: 'Analytics', icon: BarChart3 },
-    { to: '/dashboard/dashboardProduct', label: 'Courses', icon: ShoppingBag },
-    
+    { to: '/admin/admin-home', label: 'Home', icon: Home },
+    { to: '/admin/dashboard', label: 'Analytics', icon: BarChart3 },
+    { to: '/admin/dashboard/courses', label: 'Courses', icon: ShoppingBag },
+    { to: '/admin/purchases', label: 'Purchases', icon: ShoppingBag },
+    { to: '/admin/create-course', label: 'Create Course', icon: PlusSquare },
   ]
+
 
   return (
     <div className='w-64 bg-[var(--card)] shadow-xl border-r border-[var(--border)]'>

@@ -1,8 +1,10 @@
 import Login from '@/Pages/Auth/Login'
 import Register from '@/Pages/Auth/Register'
+import AdminLogin from '@/Pages/AdminAuth/AdminLogin'
+import AdminRegister from '@/Pages/AdminAuth/AdminRegister'
 import Home from '@/Pages/User/Home'
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { ProtectedRoutes } from './ProtectedRoute'
 import SingleCourse from '@/Pages/User/SingleCourse'
 import YourCourse from '@/Pages/User/YourCourse'
@@ -12,10 +14,14 @@ import DashboardAnalytics from '@/Pages/Admin/DashboardAnalytics'
 import DasbhoardProducts from '@/Pages/Admin/DasbhoardProducts'
 import CreateModule from '@/Pages/Admin/CreateModule'
 import AdminProfile from '@/Pages/Admin/Profile'
+import AdminHome from '@/Pages/Admin/AdminHome'
+import AdminCreateCourse from '@/Pages/Admin/AdminCreateCourse'
+import AdminProtectedRoutes from '@/Routes/AdminProtectedRoute'
 import UserProfile from '@/Pages/User/Profile'
 import Quiz from '@/Pages/User/Quiz'
 import Cancel from '@/Pages/Admin/Cancel'
 import PaymenSuccess from '@/Pages/Admin/PaymenSuccess'
+import AdminPurchases from '@/Pages/Admin/AdminPurchases'
 
 const MainRoutes = () => {
   return (
@@ -63,39 +69,68 @@ const MainRoutes = () => {
         </ProtectedRoutes>
     }/>
 
-    <Route path='/admin/profile' element={
-        <ProtectedRoutes>
-            <AdminProfile/>
-        </ProtectedRoutes>
-    }/>
-
-    <Route path='/dashboard' element={
-        <ProtectedRoutes>
-
-            <Dashboard/>
-        </ProtectedRoutes>
-        } >
-      
-      <Route index  element={
-        <ProtectedRoutes>
-            
-            <DashboardAnalytics/>
-        </ProtectedRoutes>
+        <Route path='/admin/profile' element={
+                <AdminProtectedRoutes>
+                        <AdminProfile/>
+                </AdminProtectedRoutes>
         }/>
-      <Route path='dashboardProduct' element={
-          <ProtectedRoutes>
-            <DasbhoardProducts/>
 
-        </ProtectedRoutes>
+        <Route path='/admin/admin-home' element={
+            <AdminProtectedRoutes>
+                <AdminHome />
+            </AdminProtectedRoutes>
         }/>
-        <Route path='CourseModule/:id' element={
-            <ProtectedRoutes>
-                <CreateModule/>
-            </ProtectedRoutes>
+
+        <Route path='/admin/create-course' element={
+            <AdminProtectedRoutes>
+                <AdminCreateCourse />
+            </AdminProtectedRoutes>
         }/>
-    </Route>
+
+        <Route path='/admin/purchases' element={
+            <AdminProtectedRoutes>
+                <AdminPurchases />
+            </AdminProtectedRoutes>
+        }/>
+
+        <Route path='/admin/dashboard' element={
+            <AdminProtectedRoutes>
+                <Dashboard />
+            </AdminProtectedRoutes>
+        }>
+            <Route
+                index
+                element={
+                    <AdminProtectedRoutes>
+                        <DashboardAnalytics />
+                    </AdminProtectedRoutes>
+                }
+            />
+            <Route
+                path='courses'
+                element={
+                    <AdminProtectedRoutes>
+                        <DasbhoardProducts />
+                    </AdminProtectedRoutes>
+                }
+            />
+            <Route
+                path='dashboardProduct'
+                element={<Navigate to="/admin/dashboard/courses" replace />}
+            />
+            <Route
+                path='CourseModule/:id'
+                element={
+                    <AdminProtectedRoutes>
+                        <CreateModule />
+                    </AdminProtectedRoutes>
+                }
+            />
+        </Route>
     <Route path='/login' element={<Login/>}/>
     <Route path='/register' element={<Register/>}/>
+        <Route path='/admin/login' element={<AdminLogin/>} />
+        <Route path='/admin/register' element={<AdminRegister/>} />
    </Routes>
   )
 }

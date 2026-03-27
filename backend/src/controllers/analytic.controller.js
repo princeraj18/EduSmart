@@ -1,32 +1,56 @@
 import { Course } from "../models/course.model.js"
 import { Order } from "../models/order.model.js"
 import { User } from "../models/user.model.js"
+import { Enrollment } from "../models/enrollment.model.js"
+import { Modules } from "../models/module.model.js"
+import { Quiz } from "../models/quiz.model.js"
+import { Comment } from "../models/comment.model.js"
+import {  Questions } from "../models/question.model.js"
+import { Admin } from "../models/admin.model.js"
 
 export const getAnalyitcsData= async()=>{
-    const totalUser = await User.countDocuments()
-    const totalCourse = await Course.countDocuments()
-
-    const salesData = await Order.aggregate([
-        {
-            $group:{
-                _id:null,
-                totalEntrollments:{$sum:1},
-                totalRevenue:{$sum:'$totalAmount'}
+    const [
+        totalUser,
+        totalCourse,
+        totalEnrollment,
+        totalRevenueAgg,
+        totalModules,
+        totalQuizzes,
+        totalComments,
+        totalQuestions,
+        totalAdmins
+    ] = await Promise.all([
+        User.countDocuments(),
+        Course.countDocuments(),
+        Enrollment.countDocuments(),
+        Order.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    totalRevenue: { $sum: '$totalAmount' }
+                }
             }
-        }
+        ]),
+        Modules.countDocuments(),
+        Quiz.countDocuments(),
+        Comment.countDocuments(),
+        Questions.countDocuments(),
+        Admin.countDocuments()
     ])
 
-    const {
-        totalEntrollments=0,
-        totalRevenue=0
-    } = salesData[0]|| {}
-
+    const totalRevenue = totalRevenueAgg?.[0]?.totalRevenue || 0
 
     return {
-        users:totalUser,
-        courses:totalCourse,
-        totalEntrollments,
-        totalRevenue
+        users: totalUser,
+        courses: totalCourse,
+        totalEntrollments: totalEnrollment,
+        totalRevenue,
+        // extra KPIs for future use
+        totalModules,
+        totalQuizzes,
+        totalComments,
+        totalQuestions,
+        totalAdmins
     }
 }
 
@@ -54,7 +78,7 @@ export const getAnalyticsDataController=async(req,res)=>{
 export const dailyEnrollmentData= async(startDate, endDate)=>{
     try {
 
-        const dailyData = await Order.aggregate([
+        const dailyEnrollments = await Enrollment.aggregate([
             {
                 $match:{
                     createdAt:{
@@ -64,15 +88,74 @@ export const dailyEnrollmentData= async(startDate, endDate)=>{
                 }
             },
 
+            {
+                $group:{
+                    _id:{
+                        $dateToString:{format:"%Y-%m-%d", date:"$createdAt"}
+                    },
+                    enrollments:{$sum:1}
+                },
+            },
+            {$sort:{_id:1}}
+        ])
+
+        const dailyRevenue = await Order.aggregate([
+            {
+                $match:{
+                    createdAt:{
+                        $gte:startDate,
+                        $lte:endDate
+                    }
+                }
+            },
 
             {
                 $group:{
                     _id:{
                         $dateToString:{format:"%Y-%m-%d", date:"$createdAt"}
                     },
-                    enrollments:{$sum:1},
                     revenue:{$sum:"$totalAmount"}
                 },
+            },
+            {$sort:{_id:1}}
+        ])
+
+        const dailyCoursesCreated = await Course.aggregate([
+            {
+                $match:{
+                    createdAt:{
+                        $gte:startDate,
+                        $lte:endDate
+                    }
+                }
+            },
+            {
+                $group:{
+                    _id:{
+                        $dateToString:{format:"%Y-%m-%d", date:"$createdAt"}
+                    },
+                    coursesCreated:{$sum:1}
+                }
+            },
+            {$sort:{_id:1}}
+        ])
+
+        const dailyUsersRegistered = await User.aggregate([
+            {
+                $match:{
+                    createdAt:{
+                        $gte:startDate,
+                        $lte:endDate
+                    }
+                }
+            },
+            {
+                $group:{
+                    _id:{
+                        $dateToString:{format:"%Y-%m-%d", date:"$createdAt"}
+                    },
+                    usersRegistered:{$sum:1}
+                }
             },
             {$sort:{_id:1}}
         ])
@@ -81,11 +164,16 @@ export const dailyEnrollmentData= async(startDate, endDate)=>{
         const dateArray = getDatesInRange(startDate,endDate)
 
         return dateArray.map((date)=>{
-            const found = dailyData.find((item)=>item._id===date)
+            const foundEnrollments = dailyEnrollments.find((item)=>item._id===date)
+            const foundRevenue = dailyRevenue.find((item)=>item._id===date)
+            const foundCoursesCreated = dailyCoursesCreated.find((item)=>item._id===date)
+            const foundUsersRegistered = dailyUsersRegistered.find((item)=>item._id===date)
             return{
                 date,
-                enrollments:found?.enrollments||0,
-                revenue:found?.revenue||0
+                enrollments:foundEnrollments?.enrollments||0,
+                revenue:foundRevenue?.revenue||0,
+                coursesCreated:foundCoursesCreated?.coursesCreated||0,
+                usersRegistered:foundUsersRegistered?.usersRegistered||0
             }
         })
 

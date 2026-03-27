@@ -51,7 +51,7 @@ const DashboardAnalytics = () => {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-xl font-semibold text-[var(--foreground)]">
-              Revenue Trend
+              Revenue & Enrollments Trend
             </h2>
             <p className="text-sm text-[var(--muted-foreground)]">
               Last 7 days performance
@@ -67,14 +67,80 @@ const DashboardAnalytics = () => {
               <LineChart data={dailyData || []}>
                 <CartesianGrid stroke="#e5e7eb" strokeDasharray="3 3" />
                 <XAxis dataKey="date" />
-                <YAxis />
+                <YAxis yAxisId="left" />
+                <YAxis yAxisId="right" orientation="right" />
                 <Tooltip
-                  formatter={(value) => [`₹ ${value}`, 'Revenue']}
+                  formatter={(value, name) => {
+                    if (name === 'Revenue') return [`₹ ${value}`, 'Revenue']
+                    return [value, name]
+                  }}
                 />
                 <Line
                   type="monotone"
                   dataKey="revenue"
+                  name="Revenue"
+                  yAxisId="left"
                   stroke="#2563eb"
+                  strokeWidth={3}
+                  dot={false}
+                  activeDot={{ r: 6 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="enrollments"
+                  name="Enrollments"
+                  yAxisId="right"
+                  stroke="#16a34a"
+                  strokeWidth={3}
+                  dot={false}
+                  activeDot={{ r: 6 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </div>
+
+      {/* Growth Chart Section */}
+      <div className="bg-[var(--card)] rounded-2xl shadow-lg border border-[var(--border)] p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-xl font-semibold text-[var(--foreground)]">
+              Courses & Users Growth
+            </h2>
+            <p className="text-sm text-[var(--muted-foreground)]">
+              Last 7 days performance
+            </p>
+          </div>
+        </div>
+
+        {isLoading ? (
+          <ChartSkeleton />
+        ) : (
+          <div className="h-[55vh]">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={dailyData || []}>
+                <CartesianGrid stroke="#e5e7eb" strokeDasharray="3 3" />
+                <XAxis dataKey="date" />
+                <YAxis yAxisId="left" />
+                <YAxis yAxisId="right" orientation="right" />
+                <Tooltip formatter={(value, name) => [value, name]} />
+                <Line
+                  type="monotone"
+                  dataKey="coursesCreated"
+                  name="Courses Created"
+                  yAxisId="left"
+                  stroke="#7c3aed"
+                  strokeWidth={3}
+                  dot={false}
+                  activeDot={{ r: 6 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="usersRegistered"
+                  name="Users Registered"
+                  yAxisId="right"
+                  stroke="#f59e0b"
                   strokeWidth={3}
                   dot={false}
                   activeDot={{ r: 6 }}

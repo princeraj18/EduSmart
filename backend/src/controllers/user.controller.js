@@ -32,16 +32,10 @@ export const Register = async(req ,res)=>{
             fullName,
             email,
             password:hashedPassword,
-            admin: email === ENV.ADMIN_EMAIL
+           
         })
 
         const token = await jwt.sign({userId:newUser._id},ENV.JWT_SECRET )
-
-        if(newUser.email === ENV.ADMIN_EMAIL){
-            return res.status(201).cookie("token", token, {maxAge:1*24*60*60*1000, httpOnly:true, secure:true, sameSite:"none"}).json({
-                message:`welcome back admin ${newUser.fullName}`,
-            })
-        }
 
         return res.status(201).cookie("token", token, {maxAge:1*24*60*60*1000, httpOnly:true, secure:true, sameSite:"none"}).json({
                 message:`welcome back  ${newUser.fullName}`
@@ -80,18 +74,14 @@ export const Login = async(req,res)=>{
             })
         }
 
-        if(user.email == ENV.ADMIN_EMAIL){
-            user.admin = true,
-            await user.save()
-        }
-
         const token = await jwt.sign({userId:user._id},ENV.JWT_SECRET )
+        res.clearCookie("adminToken")   // ✅ remove admin session
 
-        res.cookie("token",token,{
-            maxAge:1*24*60*60*1000,
-            httpOnly:true,
-            secure:true,
-            sameSite:"none"
+        res.cookie("token", token, {
+            maxAge: 1 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: false,      // 👈 FIX (IMPORTANT)
+            sameSite: "lax"
         })
 
         if(user.admin){
@@ -133,15 +123,25 @@ export const getUser = async(req,res)=>{
 }
 
 
-export const logout=async(req,res)=>{
+export const logout = async (req, res) => {
     try {
-        return res.cookie("token","").status(201).json({
-            message:"User logged out"
-        })
+        const cookieOptions = {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+            path: "/"        // ✅ CRITICAL FIX
+          }
+  
+          // Clear both possible auth cookies to avoid mixed sessions.
+          res.clearCookie("token", cookieOptions)
+          res.clearCookie("adminToken", cookieOptions)
+      return res.status(200).json({
+        message: "User logged out"
+      })
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-}
+  }
 
 
 
