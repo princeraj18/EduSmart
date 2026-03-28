@@ -11,7 +11,7 @@ import { Spinner } from './ui/spinner'
 import Logo from './ui/Logo'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useUserStore } from '@/Store/user.store'
-import { LogOut, User, LayoutDashboard, BookOpen, Sun, Moon } from 'lucide-react'
+import { LogOut, User, LayoutDashboard, BookOpen, Sun, Moon, HandHelping } from 'lucide-react'
 import { ShoppingBag } from 'lucide-react'
 
 const Navbar = () => {
@@ -25,6 +25,7 @@ const Navbar = () => {
   const { data: adminMe } = useAdminMe(!isAuthScreen)
 
   const isAdminLoggedIn = adminMe?.success === true
+  const showUserNav = !isAdminLoggedIn
   const adminName = adminMe?.admin?.name
   const primaryName = isAdminLoggedIn ? adminName : user?.fullName
   const secondaryLabel = isAdminLoggedIn
@@ -64,6 +65,11 @@ const Navbar = () => {
         onClick: () => navigate('/admin/dashboard/courses'),
       },
       {
+        label: 'Support',
+        icon: HandHelping,
+        onClick: () => navigate('/admin/support'),
+      },
+      {
         label: 'Logout',
         icon: LogOut,
         onClick: () => adminLogout(),
@@ -80,6 +86,11 @@ const Navbar = () => {
         label: 'Your Courses',
         icon: BookOpen,
         onClick: () => navigate('/YourCourse'),
+      },
+       {
+        label: 'Terms & Conditions',
+        icon: HandHelping,
+        onClick: () => navigate('/terms'),
       },
       {
         label: 'Logout',
@@ -98,6 +109,29 @@ const Navbar = () => {
       >
         <Logo className='h-[50px] w-auto' />
       </div>
+
+      {/* Primary navigation links */}
+    {showUserNav
+    &&
+     <nav className='hidden md:flex items-center gap-6 mx-6'>
+        <button onClick={() => navigate('/')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname === '/' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+          Home
+        </button>
+
+        <button onClick={() => navigate('/courses')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname.startsWith('/courses') || location.pathname === '/courses' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+          Courses
+        </button>
+
+        <button onClick={() => navigate('/about')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname === '/about' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+          About
+        </button>
+
+        <button onClick={() => navigate('/contact')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname === '/contact' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+          Contact
+        </button>
+      </nav>
+    }  
+   
 
       {/* Right controls */}
       <div className='flex items-center gap-3'>

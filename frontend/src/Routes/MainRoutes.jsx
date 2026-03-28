@@ -3,6 +3,11 @@ import Register from '@/Pages/Auth/Register'
 import AdminLogin from '@/Pages/AdminAuth/AdminLogin'
 import AdminRegister from '@/Pages/AdminAuth/AdminRegister'
 import Home from '@/Pages/User/Home'
+import About from '@/Pages/About'
+import Contact from '@/Pages/Contact'
+import Terms from '@/Pages/Terms'
+import CourseDetail from '@/Pages/CourseDetail'
+import Courses from '@/Pages/User/Courses'
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { ProtectedRoutes } from './ProtectedRoute'
@@ -22,6 +27,8 @@ import Quiz from '@/Pages/User/Quiz'
 import Cancel from '@/Pages/Admin/Cancel'
 import PaymenSuccess from '@/Pages/Admin/PaymenSuccess'
 import AdminPurchases from '@/Pages/Admin/AdminPurchases'
+import AdminSupport from '@/Pages/Admin/Support'
+import CourseSection from '@/components/CourseSection'
 
 const MainRoutes = () => {
   return (
@@ -32,6 +39,7 @@ const MainRoutes = () => {
             <Home/>
         </ProtectedRoutes>
     }/>
+    <Route path='/courses' element={<Courses/>} />
     <Route path='/cancel' element={
         <ProtectedRoutes>
             <Cancel/>
@@ -52,6 +60,11 @@ const MainRoutes = () => {
             <YourCourse/>
         </ProtectedRoutes>
     }/>
+     <Route path='/terms' element={
+        <ProtectedRoutes>
+            <Terms/>
+        </ProtectedRoutes>
+    }/>
     <Route path='/YourCourse/:id' element={
         <ProtectedRoutes>
             <SinglePurchasedCourse/>
@@ -66,6 +79,21 @@ const MainRoutes = () => {
     <Route path='/profile' element={
         <ProtectedRoutes>
             <UserProfile/>
+        </ProtectedRoutes>
+    }/>
+     <Route path='/contact' element={
+        <ProtectedRoutes>
+            <Contact/>
+        </ProtectedRoutes>
+    }/>
+     <Route path='/courses' element={
+        <ProtectedRoutes>
+            <CourseSection/>
+        </ProtectedRoutes>
+    }/>
+     <Route path='/about' element={
+        <ProtectedRoutes>
+            <About/>
         </ProtectedRoutes>
     }/>
 
@@ -93,6 +121,12 @@ const MainRoutes = () => {
             </AdminProtectedRoutes>
         }/>
 
+        <Route path='/admin/support' element={
+            <AdminProtectedRoutes>
+                <AdminSupport />
+            </AdminProtectedRoutes>
+        }/>
+
         <Route path='/admin/dashboard' element={
             <AdminProtectedRoutes>
                 <Dashboard />
@@ -115,8 +149,14 @@ const MainRoutes = () => {
                 }
             />
             <Route
-                path='dashboardProduct'
-                element={<Navigate to="/admin/dashboard/courses" replace />}
+                path='"/admin/dashboard/courses"'
+                
+                element={
+                    <AdminProtectedRoutes>
+                        <DasbhoardProducts />
+                    </AdminProtectedRoutes>
+                
+            }
             />
             <Route
                 path='CourseModule/:id'
@@ -129,6 +169,10 @@ const MainRoutes = () => {
         </Route>
     <Route path='/login' element={<Login/>}/>
     <Route path='/register' element={<Register/>}/>
+    {/* <Route path='/about' element={<About/>} />
+    <Route path='/contact' element={<Contact/>} />
+    <Route path='/terms' element={<Terms/>} /> */}
+    {/* <Route path='/course/:id' element={<CourseDetail/>} /> */}
         <Route path='/admin/login' element={<AdminLogin/>} />
         <Route path='/admin/register' element={<AdminRegister/>} />
    </Routes>

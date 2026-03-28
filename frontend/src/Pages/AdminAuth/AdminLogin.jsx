@@ -54,7 +54,7 @@ const AdminLogin = () => {
             onClick={() => navigate('/')}
             className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
           >
-            ← Back to Home
+            ← Back to User
           </button>
         </div>
       </div>

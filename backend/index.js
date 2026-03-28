@@ -8,6 +8,7 @@ import moduleRoute from './src/routes/module.routes.js'
 import quizRoute from './src/routes/quiz.route.js'
 import commentRoute from './src/routes/comment.route.js'
 import adminRoute from './src/routes/admin.route.js'
+import supportRoute from './src/routes/support.route.js'
 import paymentRoute from './src/routes/payment.route.js'
 import analyticRoute from './src/routes/analytic.route.js'
 import cors from 'cors'
@@ -29,6 +30,7 @@ app.use('/api/module', moduleRoute)
 app.use('/api/quiz', quizRoute)
 app.use('/api/comment', commentRoute)
 app.use('/api/admin', adminRoute)
+app.use('/api/support', supportRoute)
 
 app.use('/api/payment', paymentRoute)
 app.use('/api/analytic', analyticRoute)
