@@ -29,6 +29,9 @@ import PaymenSuccess from '@/Pages/Admin/PaymenSuccess'
 import AdminPurchases from '@/Pages/Admin/AdminPurchases'
 import AdminSupport from '@/Pages/Admin/Support'
 import CourseSection from '@/components/CourseSection'
+import ForgotPassword from '@/Pages/Auth/ForgotPassword'
+import ResetPassword from '@/Pages/Auth/ResetPassword'
+// import ForgotPassword from '@/Pages/Auth/ForgotPassword'
 
 const MainRoutes = () => {
   return (
@@ -175,6 +178,8 @@ const MainRoutes = () => {
     {/* <Route path='/course/:id' element={<CourseDetail/>} /> */}
         <Route path='/admin/login' element={<AdminLogin/>} />
         <Route path='/admin/register' element={<AdminRegister/>} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+<Route path="/reset-password/:token" element={<ResetPassword />} />
    </Routes>
   )
 }

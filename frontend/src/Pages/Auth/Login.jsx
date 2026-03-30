@@ -84,11 +84,12 @@ const Login = () => {
           </button>
          
         </form>
-         <button         type="button"  
-            className="cursor-pointer w-full mt-3 py-3 rounded-xl bg-red-600 text-[var(--primary-foreground)] font-semibold hover:brightness-95 transition-all disabled:opacity-60 flex items-center justify-center"
-          >
-             Forget password ?
-          </button>
+        <p
+  onClick={() => navigate("/forgot-password")}
+  className="text-blue-500 cursor-pointer"
+>
+  Forgot Password?
+</p>
         
 
         {/* Footer */}
