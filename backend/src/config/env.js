@@ -12,6 +12,8 @@ export const ENV = {
     GEMINI_API_KEY:process.env.GEMINI_API_KEY,
     STRIPE_PUBLISHABLE_KEY:process.env.STRIPE_PUBLISHABLE_KEY,
     STRIPE_SECRET_KEY:process.env.STRIPE_SECRET_KEY,
-    CLIENT_URL:process.env.CLIENT_URL
+    CLIENT_URL:process.env.CLIENT_URL,
+    EMAIL_USER: process.env.EMAIL_USER,
+  EMAIL_PASS: process.env.EMAIL_PASS
 
 }

@@ -27,7 +27,8 @@ const userSchema  = new mongoose.Schema({
             
         }
     ],
-    profilePhoto:{type:String}
+    profilePhoto:{type:String},
+    
 },{timestamps:true})
 
 
