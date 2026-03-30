@@ -4,6 +4,7 @@ import MainRoutes from './Routes/MainRoutes'
 import Navbar from './components/Navbar'
 import { useLocation } from 'react-router-dom'
 import Footer from './components/Footer'
+import ChatBot from './components/ChatBot'
 
 const App = () => {
   const location = useLocation()
@@ -14,7 +15,7 @@ const App = () => {
   return (
     <div>
     {!shouldHideNavbar && <Navbar/>}
-
+    <ChatBot />
      <MainRoutes/>
      {shouldShowFooter && <Footer />}
     </div>
