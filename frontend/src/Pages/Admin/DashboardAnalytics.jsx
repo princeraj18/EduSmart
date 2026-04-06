@@ -11,7 +11,7 @@ import {
 } from 'recharts'
 
 const DashboardAnalytics = () => {
-  const { data } = useGetDataHook()
+  const { data, isFetching, dataUpdatedAt } = useGetDataHook()
 
   const { startDate, endDate } = useMemo(() => {
     const end = new Date()
@@ -32,10 +32,23 @@ const DashboardAnalytics = () => {
     <div className="min-h-screen bg-[var(--background)] p-8 space-y-10">
       {/* Page Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Analytics Overview</h1>
-        <p className="text-gray-500 mt-1">
-          Track platform performance & revenue
-        </p>
+        <div className="flex items-baseline justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Analytics Overview</h1>
+            <p className="text-gray-500 mt-1">Track platform performance & revenue</p>
+          </div>
+          <div className="text-sm text-gray-500">
+            {isFetching ? (
+              <span>Updating...</span>
+            ) : (
+              dataUpdatedAt ? (
+                <span>Updated {new Date(dataUpdatedAt).toLocaleTimeString()}</span>
+              ) : (
+                <span>Last update unavailable</span>
+              )
+            )}
+          </div>
+        </div>
       </div>
 
       {/* KPI Cards */}

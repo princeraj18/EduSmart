@@ -1,6 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useCreateCouseHook } from '@/hooks/course.hook'
+import { useGetCategoriesHook } from '@/hooks/resource.hook'
 import { Spinner } from '@/components/ui/spinner'
 import { toast } from 'sonner'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 const AdminCreateCourse = () => {
   const { register, handleSubmit, reset } = useForm()
   const { mutate, isPending } = useCreateCouseHook()
+  const { data: categories = [] } = useGetCategoriesHook()
   const navigate = useNavigate()
 
   const onSubmit = (data) => {
@@ -15,6 +17,7 @@ const AdminCreateCourse = () => {
     formData.append('title', data.title)
     formData.append('description', data.description)
     formData.append('amount', data.amount)
+    if (data.category) formData.append('category', data.category)
     if (data.thumbnail && data.thumbnail[0]) formData.append('thumbnail', data.thumbnail[0])
 
     mutate(formData, {
@@ -54,6 +57,16 @@ const AdminCreateCourse = () => {
             <div>
               <label className="block text-sm text-[var(--muted-foreground)] mb-1">Thumbnail</label>
               <input type="file" accept="image/*" {...register('thumbnail')} className="w-full" />
+            </div>
+
+            <div className=''>
+              <label className="block text-sm text-[var(--muted-foreground)] mb-1">Category</label>
+              <select {...register('category')} className="w-full bg-black px-4 py-3 border rounded-xl">
+                <option value="">Select category</option>
+                {categories.map((c) => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
             </div>
 
             <button type="submit" disabled={isPending} className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold">

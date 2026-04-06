@@ -5,6 +5,7 @@ import {
   ShoppingBag, 
   Home,
   BarChart3,
+  FileText,
   PlusSquare
 } from 'lucide-react'
 
@@ -15,6 +16,7 @@ const DashboardSideBar = () => {
     { to: '/admin/dashboard/courses', label: 'Courses', icon: ShoppingBag },
     { to: '/admin/purchases', label: 'Purchases', icon: ShoppingBag },
     { to: '/admin/create-course', label: 'Create Course', icon: PlusSquare },
+    { to: '/admin/resources', label: 'Resources', icon: FileText },
   ]
 
 

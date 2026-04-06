@@ -92,6 +92,11 @@ const Navbar = () => {
         icon: HandHelping,
         onClick: () => navigate('/terms'),
       },
+       {
+        label: 'Track requests',
+        icon: HandHelping,
+          onClick: () => navigate('/support/my'),
+      },
       {
         label: 'Logout',
         icon: LogOut,
@@ -128,6 +133,9 @@ const Navbar = () => {
 
         <button onClick={() => navigate('/contact')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname === '/contact' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
           Contact
+        </button>
+        <button onClick={() => navigate('/resources')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname === '/resources' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+          Resources
         </button>
       </nav>
     }  

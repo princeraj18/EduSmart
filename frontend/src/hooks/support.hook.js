@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { createSupportApi, getAllSupportApi, getSupportByIdApi, updateSupportApi } from '@/Api/support.api'
+import { createSupportApi, getAllSupportApi, getSupportByIdApi, updateSupportApi, getMySupportApi, getMySupportByIdApi } from '@/Api/support.api'
 
 export const useCreateSupportHook = () => {
   const queryClient = useQueryClient()
@@ -34,5 +34,22 @@ export const useUpdateSupportHook = () => {
   return useMutation({
     mutationFn: updateSupportApi,
     onSuccess: () => queryClient.invalidateQueries(['support'])
+  })
+}
+
+export const useGetMySupportHook = () => {
+  return useQuery({
+    queryKey: ['mySupport'],
+    queryFn: getMySupportApi,
+    retry: false
+  })
+}
+
+export const useGetMySupportById = (id) => {
+  return useQuery({
+    queryKey: ['mySupport', id],
+    queryFn: () => getMySupportByIdApi(id),
+    enabled: !!id,
+    retry: false
   })
 }

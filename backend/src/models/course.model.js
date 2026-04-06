@@ -23,6 +23,13 @@ const courseSchema= new mongoose.Schema({
         required:true
     },
 
+    // Category for course filtering
+    category: {
+        type: String,
+        enum: ['Web Dev', 'Data Analytics', 'Management', 'Version Control', 'New Tool'],
+        default: null,
+    },
+
     modules:[
         {
             type:mongoose.Schema.Types.ObjectId,

@@ -9,9 +9,11 @@ import { Comment } from "../models/comment.model.js";
 const genAI = new GoogleGenerativeAI(ENV.GEMINI_API_KEY)
 const model = genAI.getGenerativeModel({model:'gemini-2.5-flash'})
 
+const ALLOWED_CATEGORIES = ['Web Dev', 'Data Analytics', 'Management', 'Version Control', 'New Tool']
+
 export const createCourse = async (req, res) => {
     try {
-      const { title, description, amount } = req.body
+    const { title, description, amount, category } = req.body
       const thumbnail = req.file
   
     //   console.log("ADMIN:", req.admin)
@@ -36,12 +38,23 @@ export const createCourse = async (req, res) => {
         folder: "lmsYT"
       })
   
-      const newCourse = new Course({
+            // validate category if provided
+            let normalizedCategory = null
+            if (category) {
+                const found = ALLOWED_CATEGORIES.find(c => c.toLowerCase() === String(category).toLowerCase())
+                if (!found) {
+                    return res.status(400).json({ message: `Invalid category. Allowed: ${ALLOWED_CATEGORIES.join(', ')}` })
+                }
+                normalizedCategory = found
+            }
+
+            const newCourse = new Course({
         userId: req.admin._id,   // ✅ FIXED
         title,
         description,
         thumbnail: uploadRes.secure_url,
-        amount
+                amount,
+                category: normalizedCategory
       })
   
       await newCourse.save()
@@ -204,8 +217,8 @@ export const getAllOrdersAdmin = async (req, res) => {
 
 export const updateCourse = async (req, res) => {
     try {
-        const courseId = req.params.id
-        const { title, description, amount } = req.body
+          const courseId = req.params.id
+              const { title, description, amount, category } = req.body
 
         if (!courseId) {
             return res.status(400).json({ success: false, message: 'Course id is required' })
@@ -216,6 +229,14 @@ export const updateCourse = async (req, res) => {
         if (title !== undefined) updateData.title = title
         if (description !== undefined) updateData.description = description
         if (amount !== undefined) updateData.amount = Number(amount)
+        if (category !== undefined) {
+            // validate category
+            const found = ALLOWED_CATEGORIES.find(c => c.toLowerCase() === String(category).toLowerCase())
+            if (!found && category !== null && category !== '') {
+                return res.status(400).json({ success: false, message: `Invalid category. Allowed: ${ALLOWED_CATEGORIES.join(', ')}` })
+            }
+            updateData.category = found || null
+        }
 
         if (req.file) {
             const base64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`

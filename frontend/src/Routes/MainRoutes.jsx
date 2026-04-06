@@ -21,6 +21,7 @@ import CreateModule from '@/Pages/Admin/CreateModule'
 import AdminProfile from '@/Pages/Admin/Profile'
 import AdminHome from '@/Pages/Admin/AdminHome'
 import AdminCreateCourse from '@/Pages/Admin/AdminCreateCourse'
+import AdminResources from '@/Pages/Admin/AdminResources'
 import AdminProtectedRoutes from '@/Routes/AdminProtectedRoute'
 import UserProfile from '@/Pages/User/Profile'
 import Quiz from '@/Pages/User/Quiz'
@@ -28,10 +29,13 @@ import Cancel from '@/Pages/Admin/Cancel'
 import PaymenSuccess from '@/Pages/Admin/PaymenSuccess'
 import AdminPurchases from '@/Pages/Admin/AdminPurchases'
 import AdminSupport from '@/Pages/Admin/Support'
+import Resources from '@/Pages/User/Resources'
 import CourseSection from '@/components/CourseSection'
 import ForgotPassword from '@/Pages/Auth/ForgotPassword'
 import ResetPassword from '@/Pages/Auth/ResetPassword'
 import ChatBot from '@/components/ChatBot'
+import SupportRequestDetail from '@/Pages/User/SupportRequestDetail'
+import MySupport from '@/Pages/User/MySupport'
 // import ChatBot from '@/components/ChatBot'
 // import ForgotPassword from '@/Pages/Auth/ForgotPassword'
 
@@ -100,6 +104,18 @@ const MainRoutes = () => {
             <Contact/>
         </ProtectedRoutes>
     }/>
+
+        <Route path='/support/my' element={
+            <ProtectedRoutes>
+                <MySupport />
+            </ProtectedRoutes>
+        }/>
+
+        <Route path='/support/requests/:id' element={
+            <ProtectedRoutes>
+                <SupportRequestDetail />
+            </ProtectedRoutes>
+        }/>
      <Route path='/courses' element={
         <ProtectedRoutes>
             <CourseSection/>
@@ -133,6 +149,18 @@ const MainRoutes = () => {
             <AdminProtectedRoutes>
                 <AdminPurchases />
             </AdminProtectedRoutes>
+        }/>
+
+        <Route path='/admin/resources' element={
+            <AdminProtectedRoutes>
+                <AdminResources />
+            </AdminProtectedRoutes>
+        }/>
+
+        <Route path='/resources' element={
+            <ProtectedRoutes>
+                <Resources />
+            </ProtectedRoutes>
         }/>
 
         <Route path='/admin/support' element={

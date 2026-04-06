@@ -16,12 +16,14 @@ const Courses = () => {
   const [gridView, setGridView] = useState(true)
 
   const categories = useMemo(() => {
-    const s = new Set()
-    courses.forEach(c => {
-      if (c.category) s.add(c.category)
-    })
-    return Array.from(s)
-  }, [courses])
+    return [
+      'Web Dev',
+      'Data Analytics',
+      'Management',
+      'Version Control',
+      'New Tool',
+    ]
+  }, [])
 
   const toggleCategory = (cat) => {
     const next = new Set(selectedCats)

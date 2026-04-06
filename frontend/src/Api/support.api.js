@@ -1,12 +1,22 @@
 import axios from 'axios'
 
 export const createSupportApi = async (payload) => {
-  const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/support/create`, payload)
+  const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/support/create`, payload, { withCredentials: true })
   return res.data
 }
 
 export const getAllSupportApi = async () => {
   const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/support/`, { withCredentials: true })
+  return res.data
+}
+
+export const getMySupportApi = async () => {
+  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/support/my`, { withCredentials: true })
+  return res.data
+}
+
+export const getMySupportByIdApi = async (id) => {
+  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/support/my/${id}`, { withCredentials: true })
   return res.data
 }
 

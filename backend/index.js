@@ -11,6 +11,7 @@ import adminRoute from './src/routes/admin.route.js'
 import supportRoute from './src/routes/support.route.js'
 import paymentRoute from './src/routes/payment.route.js'
 import analyticRoute from './src/routes/analytic.route.js'
+import resourceRoute from './src/routes/resource.route.js'
 import cors from 'cors'
 import authRoute from './src/routes/auth.route.js'
 
@@ -35,6 +36,7 @@ app.use('/api/support', supportRoute)
 app.use("/api/auth", authRoute)
 app.use('/api/payment', paymentRoute)
 app.use('/api/analytic', analyticRoute)
+app.use('/api/resource', resourceRoute)
 
 
 
