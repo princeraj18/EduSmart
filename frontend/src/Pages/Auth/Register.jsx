@@ -3,7 +3,7 @@ import { useRegisterHook } from '@/hooks/User.hook'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { User, Mail, Lock } from 'lucide-react'
+import { Lock, Mail, User } from 'lucide-react'
 
 const Register = () => {
   const { register, handleSubmit } = useForm()
@@ -14,99 +14,70 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-indigo-100 px-4">
-      <div className="w-full max-w-md bg-[var(--card)] rounded-2xl shadow-xl border border-[var(--border)] p-8">
-        
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-2xl font-bold">
-            ⚡
+    <div className='flex min-h-screen items-center justify-center bg-[linear-gradient(135deg,rgba(19,58,94,0.08),rgba(255,255,255,0.05),rgba(23,133,130,0.12))] px-4'>
+      <div className='w-full max-w-md rounded-[30px] border border-[var(--border)] bg-[var(--card)]/90 p-8 shadow-xl backdrop-blur-xl'>
+        <div className='mb-8 text-center'>
+          <div className='mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-xl bg-[var(--primary)] text-2xl font-bold text-[var(--primary-foreground)]'>
+            E
           </div>
-          <h1 className="text-2xl font-bold text-[var(--foreground)]">Create Account</h1>
-          <p className="text-sm text-[var(--muted-foreground)] mt-1">
+          <h1 className='text-2xl font-bold text-[var(--foreground)]'>Create Account</h1>
+          <p className='mt-1 text-sm text-[var(--muted-foreground)]'>
             Join us and start your journey
           </p>
         </div>
 
-        {/* Form */}
-        <form
-          onSubmit={handleSubmit(registerFormHandler)}
-          className="space-y-5"
-        >
-          {/* Full Name */}
+        <form onSubmit={handleSubmit(registerFormHandler)} className='space-y-5'>
           <div>
-            <label className="block text-sm font-medium text-[var(--muted-foreground)] mb-1">
-              Full Name
-            </label>
-            <div className="relative">
-              <User
-                size={18}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]"
-              />
+            <label className='mb-1 block text-sm font-medium text-[var(--muted-foreground)]'>Full Name</label>
+            <div className='relative'>
+              <User size={18} className='absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]' />
               <input
-                type="text"
-                placeholder="John Doe"
+                type='text'
+                placeholder='John Doe'
                 {...register('fullName')}
-                className="w-full pl-10 pr-4 py-3 border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition"
+                className='w-full rounded-xl border border-[var(--border)] bg-[var(--input)] py-3 pl-10 pr-4 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] transition focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]'
               />
             </div>
           </div>
 
-          {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-[var(--muted-foreground)] mb-1">
-              Email Address
-            </label>
-            <div className="relative">
-              <Mail
-                size={18}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]"
-              />
+            <label className='mb-1 block text-sm font-medium text-[var(--muted-foreground)]'>Email Address</label>
+            <div className='relative'>
+              <Mail size={18} className='absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]' />
               <input
-                type="email"
-                placeholder="you@example.com"
+                type='email'
+                placeholder='you@example.com'
                 {...register('email')}
-                className="w-full pl-10 pr-4 py-3 border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition"
+                className='w-full rounded-xl border border-[var(--border)] bg-[var(--input)] py-3 pl-10 pr-4 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] transition focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]'
               />
             </div>
           </div>
 
-          {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-[var(--muted-foreground)] mb-1">
-              Password
-            </label>
-            <div className="relative">
-              <Lock
-                size={18}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]"
-              />
+            <label className='mb-1 block text-sm font-medium text-[var(--muted-foreground)]'>Password</label>
+            <div className='relative'>
+              <Lock size={18} className='absolute left-3 top-1/2 -translate-y-1/2 text-[var(--muted-foreground)]' />
               <input
-                type="password"
-                placeholder="••••••••"
+                type='password'
+                placeholder='********'
                 {...register('password')}
-                className="w-full pl-10 pr-4 py-3 border border-[var(--border)] rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] transition"
+                className='w-full rounded-xl border border-[var(--border)] bg-[var(--input)] py-3 pl-10 pr-4 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] transition focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]'
               />
             </div>
           </div>
 
-          {/* Submit */}
           <button
-            type="submit"
+            type='submit'
             disabled={isPending}
-            className="w-full py-3 rounded-xl bg-green-600 text-[var(--primary-foreground)] font-semibold hover:brightness-95 transition-all disabled:opacity-60 flex items-center justify-center"
+            className='flex w-full items-center justify-center rounded-xl bg-[var(--primary)] py-3 font-semibold text-[var(--primary-foreground)] transition-all hover:brightness-95 disabled:opacity-60'
           >
             {isPending ? <Spinner /> : 'Create Account'}
           </button>
         </form>
 
-        {/* Footer */}
-        <p className="text-sm text-center text-gray-600 mt-6">
+        <p className='mt-6 text-center text-sm text-[var(--muted-foreground)]'>
           Already have an account?{' '}
-          <Link
-            to="/login"
-            className="text-indigo-600 font-medium hover:underline"
-          >
+          <Link to='/login' className='font-medium text-[var(--accent)] hover:underline'>
             Login
           </Link>
         </p>

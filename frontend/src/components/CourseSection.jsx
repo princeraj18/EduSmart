@@ -1,29 +1,28 @@
 import { useGetCourseHook } from '@/hooks/course.hook'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { BookOpen, Clock, Users, Star } from 'lucide-react'
+import { BookOpen, Clock, Star, Users } from 'lucide-react'
 
 const CourseSection = ({ ActiveSearch }) => {
-  const { data, error, isLoading } = useGetCourseHook(ActiveSearch)
+  const { data, isLoading } = useGetCourseHook(ActiveSearch)
   const navigate = useNavigate()
 
-  console.log(data)
   const navigateSinglecourse = (id) => {
     navigate(`/singleCourse/${id}`)
   }
 
   if (isLoading) {
     return (
-      <div className='py-20 px-6'>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto'>
+      <div className='px-6 py-20'>
+        <div className='mx-auto grid max-w-7xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {[...Array(8)].map((_, i) => (
             <div key={i} className='animate-pulse'>
-              <div className='bg-slate-200 h-64 rounded-2xl p-6'>
-                <div className='bg-slate-300 h-48 rounded-xl mb-4'></div>
-                <div className='h-6 bg-slate-300 rounded-full mb-3'></div>
+              <div className='h-64 rounded-[28px] bg-[#efe2cf] p-6'>
+                <div className='mb-4 h-48 rounded-2xl bg-[#dccab0]'></div>
+                <div className='mb-3 h-6 rounded-full bg-[#dccab0]'></div>
                 <div className='space-y-2'>
-                  <div className='h-4 bg-slate-300 rounded w-3/4'></div>
-                  <div className='h-4 bg-slate-300 rounded w-1/2'></div>
+                  <div className='h-4 w-3/4 rounded bg-[#dccab0]'></div>
+                  <div className='h-4 w-1/2 rounded bg-[#dccab0]'></div>
                 </div>
               </div>
             </div>
@@ -33,14 +32,12 @@ const CourseSection = ({ ActiveSearch }) => {
     )
   }
 
-  // Build a RegExp from ActiveSearch safely
   const buildRegex = (input) => {
-    if(!input) return null
-    try{
+    if (!input) return null
+    try {
       return new RegExp(input, 'i')
-    }catch(e){
-      // escape special chars if user provided invalid regex
-      const escaped = input.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+    } catch (e) {
+      const escaped = input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
       return new RegExp(escaped, 'i')
     }
   }
@@ -48,93 +45,94 @@ const CourseSection = ({ ActiveSearch }) => {
   const regex = buildRegex(ActiveSearch)
 
   const filteredCourses = ActiveSearch && data?.courses
-    ? data.courses.filter(c => {
+    ? data.courses.filter((c) => {
         const title = c.title || ''
         const desc = c.description || ''
-        return (regex && (regex.test(title) || regex.test(desc)))
+        return regex && (regex.test(title) || regex.test(desc))
       })
     : data?.courses || []
 
   const highlightText = (text = '') => {
-    if(!regex) return text
+    if (!regex) return text
     const parts = []
     let lastIndex = 0
     let match
-    // Use global flag to iterate - create global regex
-    const globalRegex = new RegExp(regex.source, regex.flags.includes('g') ? regex.flags : regex.flags + 'g')
-    while((match = globalRegex.exec(text)) !== null){
+    const globalRegex = new RegExp(regex.source, regex.flags.includes('g') ? regex.flags : `${regex.flags}g`)
+
+    while ((match = globalRegex.exec(text)) !== null) {
       const start = match.index
       const end = globalRegex.lastIndex
-      if(start > lastIndex){
+      if (start > lastIndex) {
         parts.push(text.slice(lastIndex, start))
       }
-      parts.push(<mark key={start} className='bg-yellow-200 rounded px-1'>{text.slice(start, end)}</mark>)
+      parts.push(
+        <mark key={start} className='rounded bg-[#f3bb5d]/55 px-1 text-[#162033]'>
+          {text.slice(start, end)}
+        </mark>,
+      )
       lastIndex = end
-      if(globalRegex.lastIndex === match.index) globalRegex.lastIndex++
+      if (globalRegex.lastIndex === match.index) globalRegex.lastIndex += 1
     }
-    if(lastIndex < text.length){
+
+    if (lastIndex < text.length) {
       parts.push(text.slice(lastIndex))
     }
     return parts
   }
 
   return (
-    <div className='py-20 px-6 bg-[var(--background)]'>
-      <div className='max-w-7xl mx-auto'>
-        <div data-animate='stagger' className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
+    <div className='rounded-[36px] border border-[var(--border)] bg-white/35 px-4 py-8 backdrop-blur-sm md:px-6 md:py-10'>
+      <div className='mx-auto max-w-7xl'>
+        <div data-animate='stagger' className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
           {filteredCourses.map((item) => (
             <div
               key={item._id}
               onClick={() => navigateSinglecourse(item._id)}
-              className='group bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 hover:shadow-xl 
-                        hover:-translate-y-2 hover:border-[var(--accent)] cursor-pointer transition-all 
-                        duration-300 overflow-hidden max-w-sm mx-auto'
+              className='group mx-auto max-w-sm cursor-pointer overflow-hidden rounded-[28px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,252,247,0.95),rgba(243,232,215,0.8))] p-5 shadow-[0_18px_40px_rgba(20,35,58,0.08)] transition-all duration-300 hover:-translate-y-2 hover:border-[#178582] hover:shadow-[0_24px_60px_rgba(20,35,58,0.16)]'
             >
-              {/* Thumbnail */}
               <div className='relative mb-6'>
-                <img 
-                  src={item.thumbnail} 
+                <img
+                  src={item.thumbnail}
                   alt={item.title}
-                  className='w-full h-48 object-cover rounded-xl group-hover:scale-105 transition-transform duration-300'
+                  className='h-48 w-full rounded-2xl object-cover transition-transform duration-300 group-hover:scale-105'
                 />
-                <div className='absolute top-3 right-3 bg-[var(--card)]/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg'>
-                  <Star className='w-4 h-4 text-yellow-500 fill-current inline mr-1' />
+                <div className='absolute right-3 top-3 rounded-full bg-[#fff8ef]/92 px-3 py-1 shadow-lg backdrop-blur-sm'>
+                  <Star className='mr-1 inline h-4 w-4 fill-current text-[#f08a4b]' />
                   <span className='text-sm font-bold text-[var(--muted-foreground)]'>{item.rating || '4.8'}</span>
                 </div>
               </div>
 
-              {/* Content */}
               <div>
-                <h3 className='font-bold text-xl text-[var(--foreground)] leading-tight mb-3 line-clamp-2 group-hover:text-[var(--muted-foreground)]'>
+                <h3 className='mb-3 line-clamp-2 text-xl font-bold leading-tight text-[var(--foreground)] group-hover:text-[#133a5e]'>
                   {ActiveSearch ? highlightText(item.title) : item.title}
                 </h3>
-                
-                <div className='space-y-3 mb-6'>
+
+                <div className='mb-6 space-y-3'>
                   <div className='flex items-center gap-2 text-sm text-[var(--muted-foreground)]'>
-                    <Users className='w-4 h-4' />
+                    <Users className='h-4 w-4' />
                     <span>{item.enrolled || '1.2k'} students</span>
                   </div>
-                  
+
                   <div className='flex items-center gap-2 text-sm text-[var(--muted-foreground)]'>
-                    <Clock className='w-4 h-4' />
+                    <Clock className='h-4 w-4' />
                     <span>{item.duration || '12 hours'}</span>
                   </div>
+
                   {ActiveSearch && (
-                    <p className='text-sm text-[var(--muted-foreground)] mt-2 line-clamp-2'>
+                    <p className='mt-2 line-clamp-2 text-sm text-[var(--muted-foreground)]'>
                       {highlightText(item.description)}
                     </p>
                   )}
-                  
+
                   {ActiveSearch && (
-                    <div className='inline-flex items-center gap-2 px-3 py-1 bg-[var(--popover)] text-[var(--muted-foreground)] rounded-full text-xs font-medium'>
-                      <span>🔍 {ActiveSearch}</span>
+                    <div className='inline-flex items-center gap-2 rounded-full bg-[#f1e8da] px-3 py-1 text-xs font-medium text-[#133a5e]'>
+                      <span>Search: {ActiveSearch}</span>
                     </div>
                   )}
                 </div>
 
-                <div className='flex items-center justify-between pt-4 border-t border-[var(--border)]'>
-                 
-                  <button className='px-4 py-2 bg-[var(--accent)] text-[var(--accent-foreground)] text-sm font-semibold rounded-xl hover:brightness-95 transition-colors group-hover:scale-105'>
+                <div className='flex items-center justify-between border-t border-[var(--border)] pt-4'>
+                  <button className='rounded-full bg-gradient-to-r from-[#133a5e] to-[#178582] px-4 py-2 text-sm font-semibold text-white transition-colors group-hover:scale-105'>
                     View Course
                   </button>
                 </div>
@@ -144,11 +142,11 @@ const CourseSection = ({ ActiveSearch }) => {
         </div>
 
         {data?.courses?.length === 0 && !isLoading && (
-          <div className='text-center py-32'>
-            <BookOpen className='w-24 h-24 text-slate-400 mx-auto mb-8' />
-            <h2 className='text-2xl font-bold text-slate-900 mb-2'>No courses found</h2>
-            <p className='text-slate-600 max-w-md mx-auto text-lg'>
-              Try adjusting your search or explore our popular courses below
+          <div className='py-32 text-center'>
+            <BookOpen className='mx-auto mb-8 h-24 w-24 text-[#8d5f3c]' />
+            <h2 className='mb-2 text-2xl font-bold text-[var(--foreground)]'>No courses found</h2>
+            <p className='mx-auto max-w-md text-lg text-[var(--muted-foreground)]'>
+              Try adjusting your search or explore our popular learning tracks below.
             </p>
           </div>
         )}

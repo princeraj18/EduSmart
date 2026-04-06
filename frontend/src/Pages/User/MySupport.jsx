@@ -13,21 +13,27 @@ const MySupport = () => {
   const tickets = data?.tickets || []
 
   return (
-    <div className='page-surface p-6 min-h-screen bg-[var(--background)]'>
-      <h1 data-animate='fade' className='text-2xl font-bold mb-4'>My Support Requests</h1>
-      {tickets.length === 0 && <div className='text-sm text-[var(--muted-foreground)]'>You have no support requests.</div>}
-      <div data-animate='stagger' className='space-y-4 mt-4'>
-        {tickets.map(t => (
-          <div key={t._id} className='bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 flex items-center justify-between'>
-            <div>
-              <div className='font-semibold'>{t.subject}</div>
-              <div className='text-sm text-[var(--muted-foreground)]'>Status: <span className='font-medium'>{t.status}</span> • {new Date(t.createdAt).toLocaleString()}</div>
+    <div className='page-surface min-h-screen py-10'>
+      <div className='section-shell'>
+        <div data-animate='fade' className='glass-panel rounded-[36px] p-8 md:p-10'>
+          <div className='editorial-label'>Support</div>
+          <h1 className='mt-4 text-4xl font-black'>My Support Requests</h1>
+          <p className='mt-3 text-[var(--muted-foreground)]'>Track open conversations and revisit resolved support replies in one place.</p>
+        </div>
+
+        {tickets.length === 0 && <div className='mt-8 text-sm text-[var(--muted-foreground)]'>You have no support requests.</div>}
+
+        <div data-animate='stagger' className='mt-8 space-y-4'>
+          {tickets.map((t) => (
+            <div key={t._id} className='feature-card-shell flex items-center justify-between rounded-[28px] p-5'>
+              <div>
+                <div className='text-xl font-semibold'>{t.subject}</div>
+                <div className='mt-2 text-sm text-[var(--muted-foreground)]'>Status: <span className='font-medium capitalize'>{t.status}</span> • {new Date(t.createdAt).toLocaleString()}</div>
+              </div>
+              <button onClick={() => navigate(`/support/requests/${t._id}`)} className='brand-button'>View</button>
             </div>
-            <div>
-              <button onClick={() => navigate(`/support/requests/${t._id}`)} className='px-4 py-2 bg-indigo-600 text-white rounded-md'>View</button>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )

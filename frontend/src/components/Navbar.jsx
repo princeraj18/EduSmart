@@ -108,7 +108,7 @@ const Navbar = () => {
   return (
     <div
       data-animate='fade'
-      className='z-40 h-[12vh] w-full flex items-center justify-between px-6 lg:px-9 shadow-lg bg-[var(--card)]/80 backdrop-blur-xl border-b border-[var(--border)]'
+      className='z-40 mx-auto mt-4 flex min-h-[84px] w-[min(96%,84rem)] items-center justify-between rounded-[28px] border border-[var(--border)] bg-[var(--card)]/80 px-5 shadow-[0_18px_55px_rgba(21,33,51,0.12)] backdrop-blur-xl lg:px-8'
     >
       {/* Logo - Professional Typography */}
       <div
@@ -121,23 +121,23 @@ const Navbar = () => {
       {/* Primary navigation links */}
     {showUserNav
     &&
-     <nav className='hidden md:flex items-center gap-6 mx-6'>
-        <button onClick={() => navigate('/')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname === '/' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+     <nav className='hidden md:flex items-center gap-2 mx-6 rounded-full bg-white/40 p-2'>
+        <button onClick={() => navigate('/')} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors hover:text-[var(--foreground)] ${location.pathname === '/' ? 'bg-[var(--primary)] text-[var(--primary-foreground)] shadow-md' : 'text-[var(--muted-foreground)]'}`}>
           Home
         </button>
 
-        <button onClick={() => navigate('/courses')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname.startsWith('/courses') || location.pathname === '/courses' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+        <button onClick={() => navigate('/courses')} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors hover:text-[var(--foreground)] ${location.pathname.startsWith('/courses') || location.pathname === '/courses' ? 'bg-[var(--primary)] text-[var(--primary-foreground)] shadow-md' : 'text-[var(--muted-foreground)]'}`}>
           Courses
         </button>
 
-        <button onClick={() => navigate('/about')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname === '/about' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+        <button onClick={() => navigate('/about')} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors hover:text-[var(--foreground)] ${location.pathname === '/about' ? 'bg-[var(--primary)] text-[var(--primary-foreground)] shadow-md' : 'text-[var(--muted-foreground)]'}`}>
           About
         </button>
 
-        <button onClick={() => navigate('/contact')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname === '/contact' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+        <button onClick={() => navigate('/contact')} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors hover:text-[var(--foreground)] ${location.pathname === '/contact' ? 'bg-[var(--primary)] text-[var(--primary-foreground)] shadow-md' : 'text-[var(--muted-foreground)]'}`}>
           Contact
         </button>
-        <button onClick={() => navigate('/resources')} className={`text-sm font-medium hover:text-[var(--foreground)] ${location.pathname === '/resources' ? 'text-[var(--foreground)]' : 'text-[var(--muted-foreground)]'}`}>
+        <button onClick={() => navigate('/resources')} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors hover:text-[var(--foreground)] ${location.pathname === '/resources' ? 'bg-[var(--primary)] text-[var(--primary-foreground)] shadow-md' : 'text-[var(--muted-foreground)]'}`}>
           Resources
         </button>
       </nav>
@@ -149,7 +149,7 @@ const Navbar = () => {
         <button
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           aria-label='Toggle theme'
-          className='p-2 rounded-xl hover:bg-[var(--popover)] transition-colors'
+          className='rounded-full border border-[var(--border)] bg-white/50 p-2.5 hover:bg-[var(--popover)] transition-colors'
         >
           {theme === 'dark' ? (
             <Sun className='w-5 h-5 text-yellow-400' />
@@ -160,8 +160,8 @@ const Navbar = () => {
 
         {/* User Menu */}
         <Popover>
-        <PopoverTrigger className='flex items-center gap-3 p-2 hover:bg-[var(--popover)] rounded-xl transition-all duration-200 group cursor-pointer'>
-          <Avatar className='w-10 h-10 ring-2 ring-[var(--border)] group-hover:ring-[var(--sidebar-ring)] transition-all'>
+        <PopoverTrigger className='flex items-center gap-3 rounded-full border border-[var(--border)] bg-white/45 p-2 pr-3 hover:bg-[var(--popover)] transition-all duration-200 group cursor-pointer'>
+          <Avatar className='w-10 h-10 ring-2 ring-white/70 group-hover:ring-[var(--sidebar-ring)] transition-all'>
             <AvatarImage 
               src={user?.profilePhoto || "https://github.com/shadcn.png"} 
               className='object-cover'
@@ -186,7 +186,7 @@ const Navbar = () => {
           </svg>
         </PopoverTrigger>
 
-        <PopoverContent className='w-64 p-1 mt-2 border-[var(--border)] shadow-2xl rounded-2xl'>
+        <PopoverContent className='mt-2 w-64 rounded-[24px] border-[var(--border)] bg-[var(--card)]/95 p-1 shadow-2xl backdrop-blur-xl'>
           <div className='p-4 border-b border-[var(--border)]'>
             <p className='font-semibold text-[var(--foreground)] text-sm tracking-tight'>
               {primaryName || 'Welcome back'}

@@ -1,6 +1,6 @@
 import CourseSection from '@/components/CourseSection'
 import React, { useState } from 'react'
-import { Award, BookOpen, Search, TrendingUp, Users } from 'lucide-react'
+import { ArrowRight, Award, BookOpen, Search, Sparkles, TrendingUp, Users } from 'lucide-react'
 
 const Home = () => {
   const [SearchInput, setSearchInput] = useState('')
@@ -17,163 +17,161 @@ const Home = () => {
   }
 
   return (
-    <div className='page-surface min-h-screen bg-[var(--background)] text-[var(--foreground)]'>
-      {/* Hero */}
-      <section data-animate='hero' className='relative overflow-hidden bg-gradient-to-r from-blue-700 via-indigo-600 to-cyan-600 px-4 py-16 md:py-20'>
-        <div className='absolute inset-0 opacity-30'>
-          <div data-hero-art data-scroll data-scroll-speed='1.2' className='absolute -left-12 top-10 h-44 w-44 rounded-full bg-white/20 blur-3xl' />
-          <div data-hero-art data-scroll data-scroll-speed='-0.8' className='absolute right-0 top-0 h-56 w-56 rounded-full bg-cyan-200/20 blur-3xl' />
-          <div data-hero-art data-scroll data-scroll-speed='0.5' className='absolute bottom-0 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-blue-950/30 blur-3xl' />
-        </div>
-        <div className='relative mx-auto max-w-5xl text-center'>
-          <h1 data-hero-line className='text-4xl md:text-6xl font-extrabold text-white'>Welcome to EduPath</h1>
-          <p data-hero-line className='mt-5 text-lg md:text-2xl text-blue-100'>Your Gateway to Knowledge and Success</p>
-          <p data-hero-line className='mt-6 mx-auto max-w-3xl text-blue-100 text-base md:text-xl leading-relaxed'>
-            EduPath is a comprehensive learning management system designed to empower learners
-            worldwide. Access thousands of expert-led courses, learn at your own pace, and achieve
-            your career goals with our innovative platform.
-          </p>
+    <div className='page-surface min-h-screen pb-10 text-[var(--foreground)]'>
+      <section data-animate='hero' className='section-shell relative pt-10'>
+        <div className='glass-panel relative overflow-hidden rounded-[40px] px-6 py-10 md:px-10 md:py-14'>
+          <div className='absolute inset-0 bg-[linear-gradient(130deg,rgba(19,58,94,0.96),rgba(23,133,130,0.88)_48%,rgba(240,138,75,0.72))]' />
+          <div className='absolute inset-0 opacity-25'>
+            <div data-hero-art data-scroll data-scroll-speed='1.1' className='absolute -right-10 top-8 h-56 w-56 rounded-full bg-white/25 blur-3xl' />
+            <div data-hero-art data-scroll data-scroll-speed='-0.7' className='absolute left-0 top-28 h-40 w-40 rounded-full bg-[#f3bb5d]/30 blur-3xl' />
+            <div data-hero-art data-scroll data-scroll-speed='0.55' className='absolute bottom-0 left-1/3 h-48 w-48 rounded-full bg-[#133a5e]/40 blur-3xl' />
+          </div>
+
+          <div className='relative grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end'>
+            <div>
+              <div data-hero-line className='editorial-label mb-6 bg-white/14 text-white border-white/10'>
+                <Sparkles className='h-4 w-4' />
+                Modern learning studio
+              </div>
+
+              <h1 data-hero-line className='max-w-4xl text-5xl font-black leading-[0.95] text-white md:text-7xl'>
+                Education that feels alive, guided, and worth returning to.
+              </h1>
+
+              <p data-hero-line className='mt-6 max-w-2xl text-lg leading-8 text-white/82 md:text-xl'>
+                EduPath now feels like a premium learning magazine mixed with a focused study workspace. Browse curated courses, keep momentum, and move through your roadmap with clarity.
+              </p>
+
+              <div data-hero-line className='mt-8 flex flex-wrap gap-4'>
+                <button className='brand-button inline-flex items-center gap-2'>
+                  Explore the catalog
+                  <ArrowRight className='h-4 w-4' />
+                </button>
+                <button className='brand-button-secondary bg-white/14 text-white border-white/15'>
+                  See your learning path
+                </button>
+              </div>
+            </div>
+
+            <div data-hero-art className='grid gap-4 md:grid-cols-2 lg:grid-cols-1'>
+              <div className='rounded-[28px] border border-white/16 bg-white/12 p-6 text-white backdrop-blur-md'>
+                <p className='text-xs font-bold uppercase tracking-[0.26em] text-white/60'>Student pulse</p>
+                <div className='mt-4 flex items-end justify-between'>
+                  <div>
+                    <p className='text-5xl font-black'>87%</p>
+                    <p className='mt-2 text-sm text-white/75'>Weekly learners complete at least one focused session.</p>
+                  </div>
+                  <TrendingUp className='h-10 w-10 text-[#f3bb5d]' />
+                </div>
+              </div>
+
+              <div data-scroll data-scroll-speed='0.45' className='rounded-[28px] bg-[#fff8ef] p-6 text-[#162033] shadow-2xl'>
+                <p className='text-xs font-bold uppercase tracking-[0.26em] text-[#5f6c80]'>Today&apos;s rhythm</p>
+                <div className='mt-4 space-y-4'>
+                  <div className='rounded-2xl bg-[#f1e8da] p-4'>
+                    <p className='text-sm text-[#5f6c80]'>Next up</p>
+                    <p className='mt-1 text-lg font-bold'>Motion-first frontend systems</p>
+                  </div>
+                  <div className='flex items-center justify-between text-sm'>
+                    <span>Focus streak</span>
+                    <span className='font-bold text-[#178582]'>12 days</span>
+                  </div>
+                  <div className='h-2 overflow-hidden rounded-full bg-[#e5d4bc]'>
+                    <div className='h-full w-[72%] rounded-full bg-gradient-to-r from-[#178582] to-[#f08a4b]' />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <form
             onSubmit={handleSubmit}
             data-hero-line
             data-scroll
-            data-scroll-speed='0.8'
-            className='mt-10 mx-auto max-w-3xl flex items-center rounded-full border-2 border-white/90 bg-white px-2 py-2 shadow-lg'
+            data-scroll-speed='0.7'
+            className='relative mt-10 flex flex-col gap-3 rounded-[30px] border border-white/14 bg-white/90 p-3 shadow-2xl md:flex-row md:items-center'
           >
-            <div className='flex items-center flex-1 px-4'>
-              <Search className='w-5 h-5 text-slate-400 mr-3' />
+            <div className='flex flex-1 items-center gap-3 rounded-[24px] px-4 py-3'>
+              <Search className='h-5 w-5 text-[#5f6c80]' />
               <input
                 type='text'
                 value={SearchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                placeholder='Search for courses, instructors, or topics...'
-                className='w-full bg-transparent text-sm md:text-base text-slate-700 placeholder:text-slate-400 focus:outline-none'
+                placeholder='Search for product design, React, career prep, AI...'
+                className='w-full bg-transparent text-sm text-[#162033] placeholder:text-[#7b8798] focus:outline-none md:text-base'
               />
             </div>
-            <button
-              type='submit'
-              className='px-8 py-2.5 rounded-full bg-slate-950 text-white font-semibold hover:bg-slate-900 transition-colors'
-            >
-              Search
+            <button type='submit' className='brand-button min-w-40'>
+              Search courses
             </button>
           </form>
 
           {ActiveSearch && (
-            <div className='mt-4 flex items-center justify-center gap-3'>
-              <span className='text-sm text-blue-100'>
-                Showing results for: <span className='font-semibold text-white'>"{ActiveSearch}"</span>
+            <div className='relative mt-4 flex items-center justify-center gap-3 text-sm text-white/82'>
+              <span>
+                Showing results for <span className='font-semibold text-white'>&quot;{ActiveSearch}&quot;</span>
               </span>
-              <button
-                type='button'
-                onClick={resetFilter}
-                className='text-xs md:text-sm text-white/95 underline underline-offset-2 hover:text-white'
-              >
+              <button type='button' onClick={resetFilter} className='underline underline-offset-4'>
                 Clear
               </button>
             </div>
           )}
         </div>
       </section>
-{/* Featured Courses (keeps existing course card + API + search behavior) */}
-      <section data-animate='fade'>
-        <div className='mx-auto max-w-7xl px-6 pt-5'>
-          <div className='flex items-center justify-between'>
-            <div>
-              <h2 className='text-5xl font-extrabold tracking-tight'>Featured Courses</h2>
-              <p className='text-[var(--muted-foreground)] mt-2'>Explore our most popular courses</p>
+
+      <section data-animate='stagger' className='section-shell mt-8 grid gap-4 md:grid-cols-4'>
+        {[
+          { icon: Users, label: 'Active learners', value: '500K+' },
+          { icon: BookOpen, label: 'Curated courses', value: '1,200+' },
+          { icon: Award, label: 'Completion rate', value: '95%' },
+          { icon: TrendingUp, label: 'Avg. learner rating', value: '4.8/5' },
+        ].map((item) => (
+          <div key={item.label} className='feature-card-shell rounded-[28px] p-6'>
+            <div className='mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#133a5e] text-white'>
+              <item.icon className='h-5 w-5' />
             </div>
+            <p className='text-4xl font-black'>{item.value}</p>
+            <p className='mt-2 text-sm text-[var(--muted-foreground)]'>{item.label}</p>
+          </div>
+        ))}
+      </section>
+
+      <section data-animate='fade' className='section-shell mt-12'>
+        <div className='mb-6 flex items-end justify-between gap-4'>
+          <div>
+            <div className='editorial-label'>Course picks</div>
+            <h2 className='mt-4 text-4xl font-black md:text-5xl'>Featured learning tracks</h2>
+            <p className='mt-3 max-w-2xl text-[var(--muted-foreground)]'>
+              Richer cards, stronger hierarchy, and smoother browsing across the whole catalog.
+            </p>
           </div>
         </div>
         <CourseSection ActiveSearch={ActiveSearch} />
       </section>
-      {/* Stats */}
-      <section data-animate='stagger' className='border-b border-[var(--border)] bg-white dark:bg-[var(--card)]'>
-        <div className='mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-4 gap-8 px-6 py-10'>
-          <div className='text-center'>
-            <div className='mx-auto mb-2 w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center'>
-              <Users className='w-5 h-5' />
+
+      <section data-animate='stagger' className='section-shell mt-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]'>
+        <div className='feature-card-shell rounded-[34px] p-8'>
+          <div className='editorial-label'>Why EduPath</div>
+          <h2 className='mt-5 text-4xl font-black'>A calmer interface for serious learners.</h2>
+          <p className='mt-4 max-w-xl text-lg leading-8 text-[var(--muted-foreground)]'>
+            We rebuilt the experience around readable typography, guided surfaces, and motion that helps orientation instead of distracting from it.
+          </p>
+        </div>
+
+        <div className='grid gap-5 md:grid-cols-2'>
+          {[
+            ['Editorial clarity', 'A clearer visual hierarchy turns long study sessions into something easier to scan and stick with.'],
+            ['Smarter momentum', 'Animations now support progression, reveal context, and make navigation feel continuous.'],
+            ['Focused exploration', 'Course discovery feels more premium with stronger previews and better spacing.'],
+            ['Support built in', 'Resources, support requests, and profile pages now live in the same design language.'],
+          ].map(([title, copy]) => (
+            <div key={title} className='feature-card-shell rounded-[28px] p-6'>
+              <h3 className='text-2xl font-bold'>{title}</h3>
+              <p className='mt-3 leading-7 text-[var(--muted-foreground)]'>{copy}</p>
             </div>
-            <h3 className='text-4xl font-extrabold'>500K+</h3>
-            <p className='text-[var(--muted-foreground)]'>Active Students</p>
-          </div>
-          <div className='text-center'>
-            <div className='mx-auto mb-2 w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center'>
-              <BookOpen className='w-5 h-5' />
-            </div>
-            <h3 className='text-4xl font-extrabold'>1,200+</h3>
-            <p className='text-[var(--muted-foreground)]'>Expert Courses</p>
-          </div>
-          <div className='text-center'>
-            <div className='mx-auto mb-2 w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center'>
-              <Award className='w-5 h-5' />
-            </div>
-            <h3 className='text-4xl font-extrabold'>95%</h3>
-            <p className='text-[var(--muted-foreground)]'>Success Rate</p>
-          </div>
-          <div className='text-center'>
-            <div className='mx-auto mb-2 w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center'>
-              <TrendingUp className='w-5 h-5' />
-            </div>
-            <h3 className='text-4xl font-extrabold'>4.8/5</h3>
-            <p className='text-[var(--muted-foreground)]'>Average Rating</p>
-          </div>
+          ))}
         </div>
       </section>
-
-      {/* Why Choose */}
-      <section data-animate='stagger' className='px-6 py-16'>
-        <div className='mx-auto max-w-6xl'>
-          <div className='text-center mb-12'>
-            <h2 className='text-4xl font-extrabold'>Why Choose EduPath?</h2>
-            <p className='mt-4 text-lg text-[var(--muted-foreground)] max-w-3xl mx-auto'>
-              We&apos;re committed to providing high-quality education that&apos;s accessible, affordable,
-              and designed for real-world success.
-            </p>
-          </div>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-            <div className='rounded-2xl border border-[var(--border)] p-7 bg-[var(--card)]'>
-              <div className='mb-4 w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center'>
-                <BookOpen className='w-5 h-5' />
-              </div>
-              <h3 className='text-3xl font-bold'>Expert Instructors</h3>
-              <p className='mt-3 text-[var(--muted-foreground)]'>
-                Learn from industry professionals with years of real-world experience in their
-                fields.
-              </p>
-            </div>
-            <div className='rounded-2xl border border-[var(--border)] p-7 bg-[var(--card)]'>
-              <div className='mb-4 w-12 h-12 rounded-xl bg-green-100 text-green-600 flex items-center justify-center'>
-                <TrendingUp className='w-5 h-5' />
-              </div>
-              <h3 className='text-3xl font-bold'>Flexible Learning</h3>
-              <p className='mt-3 text-[var(--muted-foreground)]'>
-                Study at your own pace with lifetime access to course materials and resources.
-              </p>
-            </div>
-            <div className='rounded-2xl border border-[var(--border)] p-7 bg-[var(--card)]'>
-              <div className='mb-4 w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center'>
-                <Award className='w-5 h-5' />
-              </div>
-              <h3 className='text-3xl font-bold'>Certified Courses</h3>
-              <p className='mt-3 text-[var(--muted-foreground)]'>
-                Earn recognized certificates upon completion to boost your career prospects.
-              </p>
-            </div>
-             <div className='rounded-2xl border border-[var(--border)] p-7 bg-[var(--card)]'>
-              <div className='mb-4 w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center'>
-                <Award className='w-5 h-5' />
-              </div>
-              <h3 className='text-3xl font-bold'>Peer-to-Peer Networking</h3>
-              <p className='mt-3 text-[var(--muted-foreground)]'>
-                  Connect with peers and expand your professional network.
-                </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      
     </div>
   )
 }
