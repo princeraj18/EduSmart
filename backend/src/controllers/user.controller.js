@@ -35,10 +35,22 @@ export const Register = async(req ,res)=>{
            
         })
 
-        const token = await jwt.sign({userId:newUser._id},ENV.JWT_SECRET )
+        const token = jwt.sign({userId: newUser._id}, ENV.JWT_SECRET)
 
-        return res.status(201).cookie("token", token, {maxAge:1*24*60*60*1000, httpOnly:true, secure:true, sameSite:"none"}).json({
-                message:`welcome back  ${newUser.fullName}`
+        const isProd = process.env.NODE_ENV === 'production'
+        const cookieOptions = {
+            maxAge: 1 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: isProd,
+            sameSite: isProd ? 'none' : 'lax'
+        }
+
+        return res
+            .status(201)
+            .cookie('token', token, cookieOptions)
+            .json({
+                message: `welcome back  ${newUser.fullName}`,
+                token
             })
 
 
@@ -74,25 +86,30 @@ export const Login = async(req,res)=>{
             })
         }
 
-        const token = await jwt.sign({userId:user._id},ENV.JWT_SECRET )
-        res.clearCookie("adminToken")   // ✅ remove admin session
+        const token = jwt.sign({ userId: user._id }, ENV.JWT_SECRET)
 
-        res.cookie("token", token, {
+        res.clearCookie('adminToken')
+
+        const isProd = process.env.NODE_ENV === 'production'
+        const cookieOptions = {
             maxAge: 1 * 24 * 60 * 60 * 1000,
             httpOnly: true,
-            secure: false,      // 👈 FIX (IMPORTANT)
-            sameSite: "lax"
-        })
+            secure: isProd,
+            sameSite: isProd ? 'none' : 'lax'
+        }
 
-        if(user.admin){
+        res.cookie('token', token, cookieOptions)
+
+        if (user.admin) {
             return res.status(201).json({
-                message:"Welcome back admin"
+                message: 'Welcome back admin',
+                token
             })
         }
 
-
         return res.status(201).json({
-            message:`Welcome ${user.fullName}`
+            message: `Welcome ${user.fullName}`,
+            token
         })
 
 

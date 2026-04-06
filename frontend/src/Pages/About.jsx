@@ -106,7 +106,7 @@ const About = () => {
           <div className="team-card bg-white rounded-xl shadow-md overflow-hidden">
             <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=1200&q=60" alt="Sarah Johnson" className="w-full h-48 object-cover" />
             <div className="p-6 text-center">
-              <div className="text-lg font-semibold">Sarah Johnson</div>
+              <div className="text-lg font-semibold text-black">Michael Chen</div>
               <div className="text-[var(--muted-foreground)]">CEO & Founder</div>
             </div>
           </div>
@@ -114,15 +114,15 @@ const About = () => {
           <div className="team-card bg-white rounded-xl shadow-md overflow-hidden">
             <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1200&q=60" alt="Michael Chen" className="w-full h-48 object-cover" />
             <div className="p-6 text-center">
-              <div className="text-lg font-semibold">Michael Chen</div>
+              <div className="text-lg font-semibold text-black">Sarah Johnson</div>
               <div className="text-[var(--muted-foreground)]">Chief Technology Officer</div>
             </div>
           </div>
 
           <div className="team-card bg-white rounded-xl shadow-md overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1545996124-1a9b8f4f0d01?auto=format&fit=crop&w=1200&q=60" alt="Emily Rodriguez" className="w-full h-48 object-cover" />
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Emily Rodriguez" className="w-full h-48 object-fill" />
             <div className="p-6 text-center">
-              <div className="text-lg font-semibold">Emily Rodriguez</div>
+              <div className="text-lg font-semibold text-black">Jack Rodriguez</div>
               <div className="text-[var(--muted-foreground)]">Head of Education</div>
             </div>
           </div>

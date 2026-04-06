@@ -44,8 +44,14 @@ const Contact = () => {
             <Mail className="text-blue-600 w-6 h-6" />
           </div>
           <h4 className="font-semibold text-lg">Email Us</h4>
-          <a href="mailto:support@edupath.com" className="text-blue-600 mt-2">support@edupath.com</a>
-        </div>
+<a
+  href="https://mail.google.com/mail/?view=cm&fs=1&to=support@edupath.com"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-blue-600 hover:underline"
+>
+  support@edupath.com
+</a>        </div>
 
         <div className="card flex flex-col items-center text-center p-6">
           <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">

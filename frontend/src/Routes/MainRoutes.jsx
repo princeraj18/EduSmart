@@ -31,6 +31,7 @@ import AdminSupport from '@/Pages/Admin/Support'
 import CourseSection from '@/components/CourseSection'
 import ForgotPassword from '@/Pages/Auth/ForgotPassword'
 import ResetPassword from '@/Pages/Auth/ResetPassword'
+import ChatBot from '@/components/ChatBot'
 // import ChatBot from '@/components/ChatBot'
 // import ForgotPassword from '@/Pages/Auth/ForgotPassword'
 
@@ -43,7 +44,12 @@ const MainRoutes = () => {
             <Home/>
         </ProtectedRoutes>
     }/>
-    <Route path='/courses' element={<Courses/>} />
+    <Route path='/courses' element={
+        <ProtectedRoutes>
+        <Courses/>
+        
+        </ProtectedRoutes>
+        } />
     <Route path='/cancel' element={
         <ProtectedRoutes>
             <Cancel/>
@@ -67,6 +73,7 @@ const MainRoutes = () => {
             <YourCourse/>
         </ProtectedRoutes>
     }/>
+      
      <Route path='/terms' element={
         <ProtectedRoutes>
             <Terms/>

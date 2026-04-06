@@ -5,7 +5,17 @@ import { Admin } from '../models/admin.model.js'
 
 export const protectRoute = async (req, res, next) => {
   try {
-    const token = req.cookies.token
+    // Accept token from cookie or Authorization header (Bearer)
+    let token = req.cookies?.token || null
+
+    if (!token && req.headers?.authorization) {
+      const authHeader = req.headers.authorization
+      if (typeof authHeader === 'string' && authHeader.startsWith('Bearer ')) {
+        token = authHeader.split(' ')[1]
+      } else {
+        token = authHeader
+      }
+    }
 
     if (!token) {
       return res.status(401).json({
