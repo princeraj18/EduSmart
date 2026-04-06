@@ -15,9 +15,9 @@ const SupportRequestDetail = () => {
   if (!ticket) return <div className='p-6'>Ticket not found</div>
 
   return (
-    <div className='p-6 min-h-screen bg-[var(--background)]'>
-      <button onClick={() => navigate(-1)} className='mb-4 px-3 py-2 bg-white border rounded'>Back</button>
-      <div className='bg-[var(--card)] text-black p-6 rounded-2xl'>
+    <div className='page-surface p-6 min-h-screen bg-[var(--background)]'>
+      <button data-animate='fade' onClick={() => navigate(-1)} className='mb-4 px-3 py-2 bg-white border rounded'>Back</button>
+      <div data-animate='zoom' className='bg-[var(--card)] text-black p-6 rounded-2xl'>
         <h2 className='text-xl font-semibold'>{ticket.subject}</h2>
         <div className='text-sm text-[var(--muted-foreground)] mt-1'>Status: <span className='font-medium'>{ticket.status}</span></div>
         <div className='mt-4'>

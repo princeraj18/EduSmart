@@ -17,13 +17,18 @@ const Home = () => {
   }
 
   return (
-    <div className='min-h-screen bg-[var(--background)] text-[var(--foreground)]'>
+    <div className='page-surface min-h-screen bg-[var(--background)] text-[var(--foreground)]'>
       {/* Hero */}
-      <section className='bg-gradient-to-r from-blue-700 to-indigo-600 px-4 py-16 md:py-20'>
-        <div className='mx-auto max-w-5xl text-center'>
-          <h1 className='text-4xl md:text-6xl font-extrabold text-white'>Welcome to EduPath</h1>
-          <p className='mt-5 text-lg md:text-2xl text-blue-100'>Your Gateway to Knowledge and Success</p>
-          <p className='mt-6 mx-auto max-w-3xl text-blue-100 text-base md:text-xl leading-relaxed'>
+      <section data-animate='hero' className='relative overflow-hidden bg-gradient-to-r from-blue-700 via-indigo-600 to-cyan-600 px-4 py-16 md:py-20'>
+        <div className='absolute inset-0 opacity-30'>
+          <div data-hero-art data-scroll data-scroll-speed='1.2' className='absolute -left-12 top-10 h-44 w-44 rounded-full bg-white/20 blur-3xl' />
+          <div data-hero-art data-scroll data-scroll-speed='-0.8' className='absolute right-0 top-0 h-56 w-56 rounded-full bg-cyan-200/20 blur-3xl' />
+          <div data-hero-art data-scroll data-scroll-speed='0.5' className='absolute bottom-0 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-blue-950/30 blur-3xl' />
+        </div>
+        <div className='relative mx-auto max-w-5xl text-center'>
+          <h1 data-hero-line className='text-4xl md:text-6xl font-extrabold text-white'>Welcome to EduPath</h1>
+          <p data-hero-line className='mt-5 text-lg md:text-2xl text-blue-100'>Your Gateway to Knowledge and Success</p>
+          <p data-hero-line className='mt-6 mx-auto max-w-3xl text-blue-100 text-base md:text-xl leading-relaxed'>
             EduPath is a comprehensive learning management system designed to empower learners
             worldwide. Access thousands of expert-led courses, learn at your own pace, and achieve
             your career goals with our innovative platform.
@@ -31,6 +36,9 @@ const Home = () => {
 
           <form
             onSubmit={handleSubmit}
+            data-hero-line
+            data-scroll
+            data-scroll-speed='0.8'
             className='mt-10 mx-auto max-w-3xl flex items-center rounded-full border-2 border-white/90 bg-white px-2 py-2 shadow-lg'
           >
             <div className='flex items-center flex-1 px-4'>
@@ -68,7 +76,7 @@ const Home = () => {
         </div>
       </section>
 {/* Featured Courses (keeps existing course card + API + search behavior) */}
-      <section>
+      <section data-animate='fade'>
         <div className='mx-auto max-w-7xl px-6 pt-5'>
           <div className='flex items-center justify-between'>
             <div>
@@ -80,7 +88,7 @@ const Home = () => {
         <CourseSection ActiveSearch={ActiveSearch} />
       </section>
       {/* Stats */}
-      <section className='border-b border-[var(--border)] bg-white dark:bg-[var(--card)]'>
+      <section data-animate='stagger' className='border-b border-[var(--border)] bg-white dark:bg-[var(--card)]'>
         <div className='mx-auto max-w-6xl grid grid-cols-2 md:grid-cols-4 gap-8 px-6 py-10'>
           <div className='text-center'>
             <div className='mx-auto mb-2 w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center'>
@@ -114,7 +122,7 @@ const Home = () => {
       </section>
 
       {/* Why Choose */}
-      <section className='px-6 py-16'>
+      <section data-animate='stagger' className='px-6 py-16'>
         <div className='mx-auto max-w-6xl'>
           <div className='text-center mb-12'>
             <h2 className='text-4xl font-extrabold'>Why Choose EduPath?</h2>

@@ -13,10 +13,10 @@ const MySupport = () => {
   const tickets = data?.tickets || []
 
   return (
-    <div className='p-6 min-h-screen bg-[var(--background)]'>
-      <h1 className='text-2xl font-bold mb-4'>My Support Requests</h1>
+    <div className='page-surface p-6 min-h-screen bg-[var(--background)]'>
+      <h1 data-animate='fade' className='text-2xl font-bold mb-4'>My Support Requests</h1>
       {tickets.length === 0 && <div className='text-sm text-[var(--muted-foreground)]'>You have no support requests.</div>}
-      <div className='space-y-4 mt-4'>
+      <div data-animate='stagger' className='space-y-4 mt-4'>
         {tickets.map(t => (
           <div key={t._id} className='bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 flex items-center justify-between'>
             <div>

@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <footer className='bg-[#0f1c3f] text-white'>
-      <div className='max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10'>
-        <div>
+    <footer data-animate='fade' className='bg-[#0f1c3f] text-white'>
+      <div data-animate='stagger' className='max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10'>
+        <div data-scroll data-scroll-speed='0.6'>
           <div className='flex items-center gap-3 mb-4'>
             <div className='w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center'>
               <BookOpen className='w-5 h-5 text-white' />

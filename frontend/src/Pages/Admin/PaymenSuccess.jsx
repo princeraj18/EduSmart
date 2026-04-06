@@ -19,7 +19,7 @@ const PaymenSuccess = () => {
   useEffect(() => {
     if (isSuccess) {
       const timer = setTimeout(() => {
-        navigate('/dashboard')
+        navigate('/')
       }, 5000)
       return () => clearTimeout(timer)
     }

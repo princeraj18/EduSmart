@@ -28,17 +28,17 @@ const Contact = () => {
   }
 
   return (
-    <div className="page-container">
+    <div className="page-container page-surface">
       {/* Hero */}
-      <section className="mb-8">
+      <section data-animate="hero" className="mb-8">
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20 px-6 rounded-xl text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold">Get In Touch</h1>
-          <p className="mt-4 max-w-3xl mx-auto text-lg text-[var(--muted-foreground)]">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+          <h1 data-hero-line className="text-4xl md:text-5xl font-extrabold">Get In Touch</h1>
+          <p data-hero-line className="mt-4 max-w-3xl mx-auto text-lg text-[var(--muted-foreground)]">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
         </div>
       </section>
 
       {/* Contact cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+      <div data-animate="stagger" className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
         <div className="card flex flex-col items-center text-center p-6">
           <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-4">
             <Mail className="text-blue-600 w-6 h-6" />
@@ -80,7 +80,7 @@ const Contact = () => {
       </div>
 
       {/* Message form */}
-      <section className="mb-10">
+      <section data-animate="zoom" className="mb-10">
         <h2 className="text-3xl font-extrabold text-center mb-2">Send Us a Message</h2>
         <p className="text-center text-[var(--muted-foreground)] mb-6">Fill out the form below and our team will get back to you shortly</p>
 
@@ -145,7 +145,7 @@ const Contact = () => {
       </section>
 
       {/* FAQ */}
-      <section className="max-w-5xl text-black mx-auto mb-10">
+      <section data-animate="fade" className="max-w-5xl text-black mx-auto mb-10">
         <h3 className="text-2xl text-white font-bold mb-4">Frequently Asked Questions</h3>
         <Accordion type="single" collapsible className="space-y-3">
           <AccordionItem value="q1" className="bg-blue-400 rounded-xl p-4 shadow-sm">
@@ -172,7 +172,7 @@ const Contact = () => {
       </section>
 
       {/* Map placeholder */}
-      <section className="mb-16">
+      <section data-animate="zoom" className="mb-16">
         <h3 className="text-2xl text-center font-bold mb-4">Our Location</h3>
         <div className="bg-gray-100 rounded-xl h-56 flex items-center justify-center">
           <div className="text-center text-[var(--muted-foreground)]">

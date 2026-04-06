@@ -106,7 +106,10 @@ const Navbar = () => {
     ]
 
   return (
-    <div className='h-[12vh] w-full flex items-center justify-between px-6 lg:px-9 shadow-lg bg-[var(--card)]/80 backdrop-blur-sm border-b border-[var(--border)]'>
+    <div
+      data-animate='fade'
+      className='z-40 h-[12vh] w-full flex items-center justify-between px-6 lg:px-9 shadow-lg bg-[var(--card)]/80 backdrop-blur-xl border-b border-[var(--border)]'
+    >
       {/* Logo - Professional Typography */}
       <div
         onClick={() => navigate(isAdminLoggedIn ? '/admin/admin-home' : '/')}

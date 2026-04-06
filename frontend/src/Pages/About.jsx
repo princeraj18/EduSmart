@@ -4,16 +4,16 @@ import { Award, Globe, Heart, TrendingUp } from 'lucide-react'
 
 const About = () => {
   return (
-    <div className="page-container">
+    <div className="page-container page-surface">
       {/* Hero */}
-      <header className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20 px-6 rounded-xl mb-12">
-        <h1 className="text-4xl md:text-6xl font-extrabold text-center">About EduPath</h1>
-        <p className="mt-4 text-center text-lg md:text-xl max-w-3xl mx-auto text-blue-100">Transforming Education Through Innovation and Accessibility</p>
+      <header data-animate="hero" className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20 px-6 rounded-xl mb-12">
+        <h1 data-hero-line className="text-4xl md:text-6xl font-extrabold text-center">About EduPath</h1>
+        <p data-hero-line className="mt-4 text-center text-lg md:text-xl max-w-3xl mx-auto text-blue-100">Transforming Education Through Innovation and Accessibility</p>
       </header>
 
       {/* Our Story */}
       <section className="grid md:grid-cols-2 gap-8 items-center mb-12">
-        <div>
+        <div data-animate="left">
           <h2 className="text-3xl font-bold mb-4">Our Story</h2>
           <p className="text-[var(--muted-foreground)] mb-4">
             EduPath was founded in 2026 with a simple yet powerful vision: to make quality education accessible to everyone, regardless of their location or background. What started as a small platform with just 20 courses has grown into a global learning community serving hundreds of thousands of students worldwide.
@@ -24,13 +24,13 @@ const About = () => {
           </p>
         </div>
 
-        <div>
+        <div data-animate="right">
           <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1200&q=60" alt="students" className="rounded-xl shadow-lg w-full object-cover" />
         </div>
       </section>
 
       {/* Stats banner */}
-      <section className="stats-banner bg-gray-50 rounded-xl mb-12">
+      <section data-animate="stagger" className="stats-banner bg-gray-50 rounded-xl mb-12">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center py-6">
           <div>
             <div className="stat-number text-4xl md:text-5xl">500K+</div>
@@ -55,7 +55,7 @@ const About = () => {
       </section>
 
       {/* Mission / Vision / Values */}
-      <section className="grid md:grid-cols-2 gap-6 mb-12">
+      <section data-animate="stagger" className="grid md:grid-cols-2 gap-6 mb-12">
         <div className="feature-card p-6 bg-white rounded-xl shadow-md">
           <div className="flex items-start gap-4 mb-4">
             <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center"><Award className="text-blue-600 w-6 h-6" /></div>
@@ -98,7 +98,7 @@ const About = () => {
       </section>
 
       {/* Leadership */}
-      <section className="mb-16">
+      <section data-animate="stagger" className="mb-16">
         <h3 className="text-3xl font-bold text-center mb-4">Meet Our Leadership Team</h3>
         <p className="text-center text-[var(--muted-foreground)] max-w-2xl mx-auto mb-8">Passionate educators and innovators dedicated to your success</p>
 

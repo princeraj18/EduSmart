@@ -78,10 +78,10 @@ const Courses = () => {
   const goToCourse = (id) => navigate(`/singleCourse/${id}`)
 
   return (
-    <div className='min-h-screen text-black bg-[var(--background)] text-[var(--foreground)] py-10'>
+    <div className='page-surface min-h-screen text-black bg-[var(--background)] text-[var(--foreground)] py-10'>
       <div className='max-w-7xl mx-auto px-4'>
         {/* Top bar */}
-        <div className='flex items-center justify-between mb-6 gap-4'>
+        <div data-animate='fade' className='flex items-center justify-between mb-6 gap-4'>
           <div className='flex items-center gap-3'>
             <button onClick={() => setShowFilters(v => !v)} className='inline-flex items-center gap-2 px-3 py-2 rounded-lg border bg-white'>
               <Filter className='w-4 h-4 ' /> Filters
@@ -104,7 +104,7 @@ const Courses = () => {
 
         <div className='grid grid-cols-1 md:grid-cols-12 gap-6'>
           {/* Sidebar */}
-          <aside className={`${showFilters ? 'block' : 'hidden'} md:block md:col-span-3 lg:col-span-3`}>
+          <aside data-animate='left' className={`${showFilters ? 'block' : 'hidden'} md:block md:col-span-3 lg:col-span-3`}>
             <div className='space-y-4'>
               <div className='p-4 bg-white rounded-xl border'>
                 <h4 className='font-semibold mb-3'>Categories</h4>
@@ -147,7 +147,7 @@ const Courses = () => {
           </aside>
 
           {/* Courses grid */}
-          <main className='md:col-span-9 lg:col-span-9'>
+          <main data-animate='right' className='md:col-span-9 lg:col-span-9'>
             {isLoading ? (
               <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {[...Array(6)].map((_, i) => (
@@ -155,7 +155,7 @@ const Courses = () => {
                 ))}
               </div>
             ) : (
-              <div className={`grid gap-6 ${gridView ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+              <div data-animate='stagger' className={`grid gap-6 ${gridView ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
                 {filtered.map((item) => (
                   <article key={item._id} onClick={() => goToCourse(item._id)} className='group bg-white rounded-2xl border p-0 overflow-hidden cursor-pointer hover:shadow-xl transition'>
                     <div className='relative'>
