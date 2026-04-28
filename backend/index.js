@@ -2,6 +2,8 @@ import express from 'express'
 import { connectDB } from './src/config/db.js'
 import { ENV } from './src/config/env.js'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
+
 import userRoute from './src/routes/user.route.js'
 import courseRoute from './src/routes/course.route.js'
 import moduleRoute from './src/routes/module.routes.js'
@@ -12,19 +14,21 @@ import supportRoute from './src/routes/support.route.js'
 import paymentRoute from './src/routes/payment.route.js'
 import analyticRoute from './src/routes/analytic.route.js'
 import resourceRoute from './src/routes/resource.route.js'
-import cors from 'cors'
 import authRoute from './src/routes/auth.route.js'
 
 const app = express()
 
+// connect DB here (important for serverless)
+connectDB()
+
 app.use(cors({
-    origin:ENV.CLIENT_URL,
-    credentials:true
+    origin: ENV.CLIENT_URL,
+    credentials: true
 }))
+
 app.use(cookieParser())
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-
+app.use(express.urlencoded({ extended: true }))
 
 app.use('/api', userRoute)
 app.use('/api/course', courseRoute)
@@ -38,10 +42,5 @@ app.use('/api/payment', paymentRoute)
 app.use('/api/analytic', analyticRoute)
 app.use('/api/resource', resourceRoute)
 
-
-
-
-app.listen(ENV.PORT,()=>{
-    console.log("server started", ENV.PORT)
-    connectDB()
-})
+// ✅ EXPORT instead of listen
+export default app
