@@ -1,5 +1,7 @@
 import { useGetDailyData, useGetDataHook } from '@/hooks/analytic.hook'
 import React, { useMemo } from 'react'
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover'
+import { Info } from 'lucide-react'
 import {
   CartesianGrid,
   Line,
@@ -54,7 +56,14 @@ const DashboardAnalytics = () => {
       {/* KPI Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         <StatCard title="Total Courses" value={data?.courses} />
-        <StatCard title="Enrollments" value={data?.totalEntrollments} />
+        <StatCard
+          title="Enrollments"
+          value={data?.studentsEnrolled ?? data?.totalEntrollments}
+          tooltip={<>
+            <div><strong>Students</strong>: unique users enrolled across courses.</div>
+            <div><strong>Enrollments</strong>: total enrollment transactions (may include multiple purchases).</div>
+          </>}
+        />
         <StatCard title="Revenue" value={`₹ ${data?.totalRevenue}`} />
         <StatCard title="Users" value={data?.users} />
       </div>
@@ -170,9 +179,21 @@ const DashboardAnalytics = () => {
 export default DashboardAnalytics
 
 
-const StatCard = ({ title, value }) => (
+const StatCard = ({ title, value, tooltip }) => (
   <div className="bg-[var(--card)] rounded-xl shadow-md p-6 border border-[var(--border)]">
-    <p className="text-sm text-[var(--muted-foreground)]">{title}</p>
+    <div className='flex items-start justify-between'>
+      <p className="text-sm text-[var(--muted-foreground)]">{title}</p>
+      {tooltip && (
+        <Popover>
+          <PopoverTrigger className='ml-2 p-1 rounded-full hover:bg-[var(--popover)]'>
+            <Info className='w-4 h-4 text-[var(--muted-foreground)]' />
+          </PopoverTrigger>
+          <PopoverContent className='text-sm p-2'>
+            {tooltip}
+          </PopoverContent>
+        </Popover>
+      )}
+    </div>
     <h2 className="text-2xl font-bold text-[var(--foreground)] mt-2">
       {value ?? '-'}
     </h2>

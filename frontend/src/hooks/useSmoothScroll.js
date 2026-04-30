@@ -61,7 +61,17 @@ export const useSmoothScroll = ({ enabled, pathname }) => {
         pinType: scrollEl.style.transform ? 'transform' : 'fixed',
       })
 
-      const handleRefresh = () => locomotive.update()
+      const handleRefresh = () => {
+        if (typeof locomotive.update === 'function') {
+          locomotive.update()
+        } else if (locomotive && typeof locomotive.scroll?.update === 'function') {
+          locomotive.scroll.update()
+        } else {
+          // fallback: trigger a ScrollTrigger refresh so layouts recalculate
+          ScrollTrigger.refresh()
+        }
+      }
+
       cleanupRefresh = handleRefresh
       ScrollTrigger.addEventListener('refresh', handleRefresh)
       ScrollTrigger.refresh()
@@ -96,7 +106,16 @@ export const useSmoothScroll = ({ enabled, pathname }) => {
           duration: 0,
           disableLerp: true,
         })
-        instanceRef.current.update()
+
+        if (typeof instanceRef.current.update === 'function') {
+          instanceRef.current.update()
+        } else if (instanceRef.current && typeof instanceRef.current.scroll?.update === 'function') {
+          instanceRef.current.scroll.update()
+        } else {
+          // If the locomotive instance doesn't expose an update method,
+          // rely on ScrollTrigger to refresh layout as a safe fallback.
+          ScrollTrigger.refresh()
+        }
         ScrollTrigger.refresh()
       }
 

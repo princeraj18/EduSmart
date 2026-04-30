@@ -137,8 +137,12 @@ const Navbar = () => {
         <button onClick={() => navigate('/contact')} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors hover:text-[var(--foreground)] ${location.pathname === '/contact' ? 'bg-[var(--primary)] text-[var(--primary-foreground)] shadow-md' : 'text-[var(--muted-foreground)]'}`}>
           Contact
         </button>
+        
         <button onClick={() => navigate('/resources')} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors hover:text-[var(--foreground)] ${location.pathname === '/resources' ? 'bg-[var(--primary)] text-[var(--primary-foreground)] shadow-md' : 'text-[var(--muted-foreground)]'}`}>
           Resources
+        </button>
+        <button onClick={() => navigate('/free-resources')} className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors hover:text-[var(--foreground)] ${location.pathname === '/free-resources' ? 'bg-[var(--primary)] text-[var(--primary-foreground)] shadow-md' : 'text-[var(--muted-foreground)]'}`}>
+          Free videos
         </button>
       </nav>
     }  

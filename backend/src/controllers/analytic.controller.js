@@ -22,7 +22,7 @@ export const getAnalyitcsData= async()=>{
     ] = await Promise.all([
         User.countDocuments(),
         Course.countDocuments(),
-        Enrollment.countDocuments(),
+            Enrollment.countDocuments(),
         Order.aggregate([
             {
                 $group: {
@@ -39,11 +39,20 @@ export const getAnalyitcsData= async()=>{
     ])
 
     const totalRevenue = totalRevenueAgg?.[0]?.totalRevenue || 0
+    // count unique students who have at least one enrollment
+    let totalStudentsEnrolled = 0
+    try {
+        const distinctUsers = await Enrollment.distinct('userId')
+        totalStudentsEnrolled = distinctUsers ? distinctUsers.length : 0
+    } catch (e) {
+        console.warn('Failed to compute distinct enrolled students:', e.message)
+    }
 
     return {
         users: totalUser,
         courses: totalCourse,
         totalEntrollments: totalEnrollment,
+        studentsEnrolled: totalStudentsEnrolled,
         totalRevenue,
         // extra KPIs for future use
         totalModules,

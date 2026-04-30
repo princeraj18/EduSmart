@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
-
 const courseSchema= new mongoose.Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
-
     title:{
         type:String,
         required:true
@@ -14,7 +12,6 @@ const courseSchema= new mongoose.Schema({
         type:String,
         required:true
     },
-
     thumbnail:{
         type:String
     },
@@ -22,8 +19,6 @@ const courseSchema= new mongoose.Schema({
         type:Number,
         required:true
     },
-
-    // Category for course filtering
     category: {
         type: String,
         enum: ['Web Dev', 'Data Analytics', 'Management', 'Version Control', 'New Tool'],
@@ -37,6 +32,5 @@ const courseSchema= new mongoose.Schema({
         }
     ]
 },{timestamps:true})
-
 
 export const Course = mongoose.model("Course", courseSchema)

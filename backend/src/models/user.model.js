@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const userSchema  = new mongoose.Schema({
     fullName:{
         type:String,
@@ -10,7 +9,6 @@ const userSchema  = new mongoose.Schema({
         required:true,
         unique:true
     },
-
     password:{
         type:String,
         required:true
@@ -19,7 +17,6 @@ const userSchema  = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-
     purchasedCourse:[
         {
             type:mongoose.Schema.Types.ObjectId,
@@ -35,6 +32,4 @@ resetPasswordExpires: {
   type: Date,
 },
 },{timestamps:true})
-
-
 export const User = mongoose.model("User", userSchema)

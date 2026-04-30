@@ -30,6 +30,7 @@ import PaymenSuccess from '@/Pages/Admin/PaymenSuccess'
 import AdminPurchases from '@/Pages/Admin/AdminPurchases'
 import AdminSupport from '@/Pages/Admin/Support'
 import Resources from '@/Pages/User/Resources'
+import FreeResource from '@/Pages/User/FreeResource'
 import CourseSection from '@/components/CourseSection'
 import ForgotPassword from '@/Pages/Auth/ForgotPassword'
 import ResetPassword from '@/Pages/Auth/ResetPassword'
@@ -160,6 +161,12 @@ const MainRoutes = () => {
         <Route path='/resources' element={
             <ProtectedRoutes>
                 <Resources />
+            </ProtectedRoutes>
+        }/>
+
+        <Route path='/free-resources' element={
+            <ProtectedRoutes>
+                <FreeResource />
             </ProtectedRoutes>
         }/>
 

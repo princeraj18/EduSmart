@@ -6,6 +6,7 @@ import { User } from "../models/user.model.js";
 import {Modules} from '../models/module.model.js'
 import { Order } from "../models/order.model.js";
 import { Comment } from "../models/comment.model.js";
+import { Enrollment } from "../models/enrollment.model.js";
 const genAI = new GoogleGenerativeAI(ENV.GEMINI_API_KEY)
 const model = genAI.getGenerativeModel({model:'gemini-2.5-flash'})
 
@@ -84,6 +85,28 @@ export const getCourse = async(req, res)=>{
         // If no search provided, return all courses
         if(!search || search.trim() === ""){
             const allCourses = await Course.find().lean()
+
+            // enrich courses with per-course enrolled (unique students) counts
+            if (allCourses && allCourses.length > 0) {
+                try {
+                    const courseIds = allCourses.map((c) => c._id)
+                    const counts = await Enrollment.aggregate([
+                        { $match: { courseId: { $in: courseIds } } },
+                        { $group: { _id: '$courseId', users: { $addToSet: '$userId' } } },
+                        { $project: { count: { $size: '$users' } } }
+                    ])
+
+                    const countMap = {}
+                    counts.forEach((row) => { countMap[String(row._id)] = row.count })
+
+                    for (const c of allCourses) {
+                        c.enrolled = countMap[String(c._id)] || 0
+                    }
+                } catch (e) {
+                    console.warn('Failed to compute per-course enrollments:', e.message)
+                }
+            }
+
             return res.status(200).json({
                 success:true,
                 courses:allCourses,
