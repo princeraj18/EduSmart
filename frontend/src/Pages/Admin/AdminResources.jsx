@@ -19,6 +19,11 @@ const AdminResources = () => {
   const { mutate: deleteYt, isLoading: isDeleting } = useDeleteYtResourceHook()
 
   const onSubmit = (data) => {
+    // debug
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.debug('Uploading PDF resource payload', data)
+    }
     const formData = new FormData()
     formData.append('title', data.title)
     formData.append('description', data.description || '')
@@ -40,6 +45,11 @@ const AdminResources = () => {
   }
 
   const onSubmitYt = (data) => {
+    // debug
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.debug('Uploading YT resource payload', data)
+    }
     const formData = new FormData()
     formData.append('title', data.ytTitle)
     formData.append('description', data.ytDescription || '')

@@ -1,37 +1,29 @@
-import axios from "axios"
+import axios from 'axios'
+import { buildUrl } from './user.api'
 
-export const createModuleApi = async(payload)=>{
-    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/module/createModule`,
+export const createModuleApi = async (payload) => {
+    const url = buildUrl('/module/createModule')
+    const res = await axios.post(
+        url,
         payload,
         {
-            headers:{'Content-Type':'multipart/form-data'},
-            withCredentials:true
-        },
+            withCredentials: true,
+        }
     )
 
     return res.data
 }
 
-
-export const getModuleApi = async(id)=>{
-    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/module/getModuel/${id}`,
-         {
-            headers:{'Content-Type':'Application/json'},
-            withCredentials:true
-        },
-    )
+export const getModuleApi = async (id) => {
+    const url = buildUrl(`/module/getModuel/${id}`)
+    const res = await axios.get(url, { withCredentials: true })
 
     return res.data
 }
 
-
-export const getCommentApi  = async(id)=>{
-    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/module/comment/${id}`,
-         {
-            headers:{'Content-Type':'Application/json'},
-            withCredentials:true
-        },
-    )
+export const getCommentApi = async (id) => {
+    const url = buildUrl(`/module/comment/${id}`)
+    const res = await axios.get(url, { withCredentials: true })
 
     return res.data
 }

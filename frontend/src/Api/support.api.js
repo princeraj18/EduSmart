@@ -1,31 +1,38 @@
 import axios from 'axios'
+import { buildUrl } from './user.api'
 
 export const createSupportApi = async (payload) => {
-  const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/support/create`, payload, { withCredentials: true })
+  const url = buildUrl('/support/create')
+  const res = await axios.post(url, payload, { withCredentials: true })
   return res.data
 }
 
 export const getAllSupportApi = async () => {
-  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/support/`, { withCredentials: true })
+  const url = buildUrl('/support/')
+  const res = await axios.get(url, { withCredentials: true })
   return res.data
 }
 
 export const getMySupportApi = async () => {
-  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/support/my`, { withCredentials: true })
+  const url = buildUrl('/support/my')
+  const res = await axios.get(url, { withCredentials: true })
   return res.data
 }
 
 export const getMySupportByIdApi = async (id) => {
-  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/support/my/${id}`, { withCredentials: true })
+  const url = buildUrl(`/support/my/${id}`)
+  const res = await axios.get(url, { withCredentials: true })
   return res.data
 }
 
 export const getSupportByIdApi = async (id) => {
-  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/support/${id}`, { withCredentials: true })
+  const url = buildUrl(`/support/${id}`)
+  const res = await axios.get(url, { withCredentials: true })
   return res.data
 }
 
 export const updateSupportApi = async ({ id, payload }) => {
-  const res = await axios.patch(`${import.meta.env.VITE_BASE_URL}/support/${id}`, payload, { withCredentials: true })
+  const url = buildUrl(`/support/${id}`)
+  const res = await axios.patch(url, payload, { withCredentials: true })
   return res.data
 }

@@ -11,6 +11,9 @@ const Login = () => {
   const navigate = useNavigate()
 
   const loginFormHandler = (data) => {
+    // Debug log to verify form submit is firing and payload
+    // eslint-disable-next-line no-console
+    console.log('loginFormHandler', data)
     mutate(data)
   }
 

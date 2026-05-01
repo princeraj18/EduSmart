@@ -1,7 +1,9 @@
 import axios from "axios"
+import { buildUrl } from "./user.api"
 
 export const adminRegisterApi = async(payload)=>{
-    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/register`,
+    const url = buildUrl('/admin/register')
+    const res = await axios.post(url,
         payload,
         {
             headers:{'Content-Type':'application/json'},
@@ -13,7 +15,8 @@ export const adminRegisterApi = async(payload)=>{
 }
 
 export const adminLoginApi = async(payload)=>{
-    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/login`,
+    const url = buildUrl('/admin/login')
+    const res = await axios.post(url,
         payload,
         {
             headers:{'Content-Type':'application/json'},
@@ -25,11 +28,13 @@ export const adminLoginApi = async(payload)=>{
 }
 
 export const adminLogoutApi = async()=>{
-    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/admin/logout`, {}, { withCredentials:true })
+    const url = buildUrl('/admin/logout')
+    const res = await axios.post(url, {}, { withCredentials:true })
     return res.data
 }
 
 export const adminGetApi = async()=>{
-    const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/admin/me`, { withCredentials:true })
+    const url = buildUrl('/admin/me')
+    const res = await axios.get(url, { withCredentials:true })
     return res.data
 }

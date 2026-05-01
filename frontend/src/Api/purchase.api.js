@@ -1,23 +1,27 @@
-import axios from "axios"
+import axios from 'axios'
+import { buildUrl } from './user.api'
 
-export const purchaseCourseApi = async(payload)=>{
-    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/payment/checkout`,
+export const purchaseCourseApi = async (payload) => {
+    const url = buildUrl('/payment/checkout')
+    const res = await axios.post(
+        url,
         payload,
         {
-            headers:'Application/json',
-            withCredentials:true
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
         }
     )
     return res.data
 }
 
-
-export const checkOutSuccessApi = async(sessionId)=>{
-    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/payment/checkout-success`,
-        {sessionId},
+export const checkOutSuccessApi = async (sessionId) => {
+    const url = buildUrl('/payment/checkout-success')
+    const res = await axios.post(
+        url,
+        { sessionId },
         {
-           headers:'Application/json',
-            withCredentials:true  
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
         }
     )
 

@@ -35,8 +35,17 @@ export const useLoginHook = ()=>{
         },
 
         onError:(err)=>{
-            toast.error(err.response.data.message)
-           
+            const message = err?.response?.data?.message || err?.message || 'Login failed'
+            try {
+                toast.error(message)
+            } catch (e) {
+                // swallow toast errors
+                // eslint-disable-next-line no-console
+                console.error('toast error:', e)
+            }
+
+            // eslint-disable-next-line no-console
+            console.error('Login error:', err)
         }
     })
 }

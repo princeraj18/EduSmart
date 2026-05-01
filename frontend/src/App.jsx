@@ -3,7 +3,7 @@ import MainRoutes from './Routes/MainRoutes'
 import Navbar from './components/Navbar'
 import { useLocation } from 'react-router-dom'
 import Footer from './components/Footer'
-import ChatBot from './components/ChatBot'
+
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { usePageAnimations } from './hooks/usePageAnimations'
 
@@ -27,7 +27,7 @@ const App = () => {
 
   return (
     <div className='min-h-screen bg-[var(--background)] text-[var(--foreground)]'>
-      <ChatBot />
+      {/* <ChatBot /> */}
       <div
         ref={containerRef}
         data-scroll-container={enableSmoothScroll ? '' : undefined}

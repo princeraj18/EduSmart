@@ -34,10 +34,10 @@ import FreeResource from '@/Pages/User/FreeResource'
 import CourseSection from '@/components/CourseSection'
 import ForgotPassword from '@/Pages/Auth/ForgotPassword'
 import ResetPassword from '@/Pages/Auth/ResetPassword'
-import ChatBot from '@/components/ChatBot'
+
 import SupportRequestDetail from '@/Pages/User/SupportRequestDetail'
 import MySupport from '@/Pages/User/MySupport'
-// import ChatBot from '@/components/ChatBot'
+
 // import ForgotPassword from '@/Pages/Auth/ForgotPassword'
 
 const MainRoutes = () => {

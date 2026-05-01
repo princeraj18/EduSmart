@@ -1,8 +1,9 @@
 import axios from 'axios'
+import { buildUrl } from './user.api'
 
 export const uploadResourceApi = async (formData) => {
-  const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/resource/upload`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
+  const url = buildUrl('/resource/upload')
+  const res = await axios.post(url, formData, {
     withCredentials: true,
   })
 
@@ -10,16 +11,19 @@ export const uploadResourceApi = async (formData) => {
 }
 
 export const getResourcesApi = async (category) => {
-  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/resource/`, { params: category ? { category } : {}, withCredentials: true })
+  const url = buildUrl('/resource/')
+  const res = await axios.get(url, { params: category ? { category } : {}, withCredentials: true })
   return res.data
 }
 
 export const getCategoriesApi = async () => {
-  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/resource/categories`, { withCredentials: true })
+  const url = buildUrl('/resource/categories')
+  const res = await axios.get(url, { withCredentials: true })
   return res.data
 }
 
 export const getResourceByIdApi = async (id) => {
-  const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/resource/${id}`, { withCredentials: true })
+  const url = buildUrl(`/resource/${id}`)
+  const res = await axios.get(url, { withCredentials: true })
   return res.data
 }
