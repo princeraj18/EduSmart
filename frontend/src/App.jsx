@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { usePageAnimations } from './hooks/usePageAnimations'
+import ChatBot from './components/ChatBot'
 
 const App = () => {
   const location = useLocation()
@@ -27,7 +28,7 @@ const App = () => {
 
   return (
     <div className='min-h-screen bg-[var(--background)] text-[var(--foreground)]'>
-      {/* <ChatBot /> */}
+
       <div
         ref={containerRef}
         data-scroll-container={enableSmoothScroll ? '' : undefined}
@@ -35,6 +36,7 @@ const App = () => {
       >
         {!shouldHideNavbar && <Navbar />}
         <main key={location.pathname} data-page className='app-main'>
+      <ChatBot />
           <MainRoutes />
         </main>
         {shouldShowFooter && <Footer />}
