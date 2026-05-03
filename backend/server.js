@@ -43,8 +43,10 @@ app.use('/api/ytresource', ytResourceRoute)
 
 
 
-
-app.listen(ENV.PORT,()=>{
+app.get('/',(req,res)=>{
+    res.send("Hello World")
+})
+app.listen(ENV.PORT || 5000 ,()=>{
     console.log("server started", ENV.PORT)
     connectDB()
 })
