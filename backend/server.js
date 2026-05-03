@@ -20,8 +20,8 @@ import authRoute from './src/routes/auth.route.js'
 const app = express()
 
 app.use(cors({
-    origin: true,
-    credentials: true
+    origin:ENV.CLIENT_URL ,
+    credentials:true
 }))
 app.use(cookieParser())
 app.use(express.json())
